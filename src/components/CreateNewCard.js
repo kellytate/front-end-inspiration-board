@@ -1,48 +1,57 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 
-const kDefaultFormState = {
+const defaultCardData = {
   message: '',
 };
 
 
 
-const CreateNewCard = ( {onCardDataReady }) => {
-  const [formField, setFormField] = useState(kDefaultFormState);
+const CreateNewCard = ( {onCardUpdate }) => {
+  const [cardData, setCardData] = useState(defaultCardData);
+  const {message} = cardData
+  const inputMessage = useRef()
 
-  const formSubmit = (event) => {
-    event.preventDefault();
-    onCardDataReady(formField);
-    setFormField(kDefaultFormState);
-  };
+  const onChange = (e) => {
+    const {name, value} = e.target;
+    setCardData({
+      ...cardData,
+      [name]: value
+    })
+  }
 
-  const onMessageChange = (event) => {
-    setFormField({message: event.target.value});
-  };
+  const cardFormSubmitHandler = (e) => {
+    e.preventDefault();
+    onCardUpdate(cardData);
+    setCardData(defaultCardData);
+    inputMessage.current.focus();
+  }
+
+  // const formSubmit = (event) => {
+  //   event.preventDefault();
+  //   onCardDataReady(formField);
+  //   setFormField(kDefaultFormState);
+  // };
+
+  // const onMessageChange = (event) => {
+  //   setFormField({message: event.target.value});
+  // };
 
   return (
-    <section>
-      <div>
-        <h2>CREATE A NEW CARD</h2>
-      </div>
-      <div>
-        <form onSubmit={formSubmit}>
-          <div>
-            <input
-              type='text'
-              name='message'
-              value={formField.message}
-              onChange={onMessageChange}
-              ></input>
-            <input type='submit' value='Submit'></input>
-          </div>
+    <form className='new-card-form' onSubmit={cardFormSubmitHandler}>
+            <h2> CREATE A NEW CARD</h2>
+            <label>message</label>
+            <input 
+                name='message' 
+                placeholder='message' 
+                onChange={onChange} 
+                value={message}
+                ref= {inputMessage}
+            />
+            <p id='preview-label'>preview: 
+                <span>{`${message}`}</span>
+            </p>
+            <button type='submit'>Submit</button>
         </form>
-      </div>
-      <div>
-        <p>preview: {formField.message}
-        </p>
-
-      </div>
-    </section>
-  );
+    );
 };
 export default CreateNewCard;

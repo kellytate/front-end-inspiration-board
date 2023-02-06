@@ -16,50 +16,49 @@ const transformResponse = (card) => {
   return { id, message, likesCount, boardId, status };
 }
 
-const createCard = (messageData) => {
-
+const handleUpdatedCard = (newCard, boardId) => {
+  console.log(newCard);
   const requestBody = {
-    ...messageData,
+    ...newCard,
     likes_count: 0,
     board_id: '',
     status: true,
   };
 
   console.log(requestBody);
-//   return axios
-//     .post(`${kBaseUrl}/cards`, [requestBody])
-//     .then((response) => {
-//       return response.data;
-//     })
-//     .catch((error) => {
-//       console.log(error);
-//     });
+  return axios
+    .post(`${kBaseUrl}/boards/${boardId}/cards`, [requestBody])
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
 
 };
 
 function App() {
-  const [newCardData, setCardData] = useState(
-    [{
-      message: '',
-    }]
-  );
+  // const [newCardData, setCardData] = useState(
+  //   [{
+  //     message: '',
+  //   }]
+  // );
 
-  const onCardDataReady = (formData) => {
+  // const onCardDataReady = (formData) => {
 
-    createCard(formData)
-    // .then((newCard) => {
-    //   setCardData(newCard);
-    // })
-    // .catch((error) => {
-    //   console.log(error);
-    // });
-  };
+  //   createCard(formData)
+  //   // .then((newCard) => {
+  //   //   setCardData(newCard);
+  //   // })
+  //   // .catch((error) => {
+  //   //   console.log(error);
+  //   // });
+  // };
 
   return (
     <main>
       <section>
-        <CreateNewCard onCardDataReady={onCardDataReady} />
-        
+        <CreateNewCard onCardUpdate={handleUpdatedCard} />
       </section>
     
     </main>
