@@ -8,16 +8,18 @@
         "id":1,
         "message":"Effort won't betray you.",
         "likes_count":0,
-        "display_status": true
+        "status": true,
+        "board_id": 1
         },
         {
         "id":2,
         "message":"You're strong and you have good taste in computers.",
         "likes_count":2,
-        "display_status": true
+        "status": true,
+        "board_id": 1
         }
     ],
-    "display_status": true
+    "status": true
     },
     {
     "id": 2,
@@ -28,28 +30,31 @@
         "id":1,
         "message":"hello",
         "likes_count":0,
-        "display_status": true
+        "status": true,
+        "board_id": 2
         },
         {
         "id":2,
         "message":"ocelot",
         "likes_count":0,
-        "display_status": true
+        "status": true,
+        "board_id": 2
         },
         {
         "id":1,
         "message":"awesome",
         "likes_count":3,
-        "display_status": true
+        "status": true,
+        "board_id": 1
         }
     ],
-    "display_status": true
+    "status": true
     },
     {
     "id": 3,
     "title":"Project Idea",
     "owner":"Elaine",      
     "cards":[],
-    "display_status": true
+    "status": true
     }
 ]
