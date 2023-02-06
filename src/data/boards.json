@@ -1,0 +1,55 @@
+[
+    {
+    "id": 1,
+    "title":"Pick-me-up Quotes",
+    "owner":"Cindy",      
+    "cards":[
+        {
+        "id":1,
+        "message":"Effort won't betray you.",
+        "likes_count":0,
+        "display_status": true
+        },
+        {
+        "id":2,
+        "message":"You're strong and you have good taste in computers.",
+        "likes_count":2,
+        "display_status": true
+        }
+    ],
+    "display_status": true
+    },
+    {
+    "id": 2,
+    "title":"ocelot facts and fun",
+    "owner":"Kelly",      
+    "cards":[
+        {
+        "id":1,
+        "message":"hello",
+        "likes_count":0,
+        "display_status": true
+        },
+        {
+        "id":2,
+        "message":"ocelot",
+        "likes_count":0,
+        "display_status": true
+        },
+        {
+        "id":1,
+        "message":"awesome",
+        "likes_count":3,
+        "display_status": true
+        }
+    ],
+    "display_status": true
+    },
+    {
+    "id": 3,
+    "title":"Project Idea",
+    "owner":"Elaine",      
+    "cards":[],
+    "display_status": true
+    }
+]
