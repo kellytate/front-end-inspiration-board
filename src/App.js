@@ -11,9 +11,9 @@ const transformResponse = (card) => {
     message,
     likes_count: likesCount,
     board_id: boardId,
-    display_status: displayStatus,
+    status,
   } = card;
-  return { id, message, likesCount, boardId, displayStatus };
+  return { id, message, likesCount, boardId, status };
 }
 
 const createCard = (messageData) => {
@@ -22,7 +22,7 @@ const createCard = (messageData) => {
     ...messageData,
     likes_count: 0,
     board_id: '',
-    display_status: true,
+    status: true,
   };
 
   console.log(requestBody);
