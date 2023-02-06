@@ -29,8 +29,7 @@ CardsForSelectedBoard.propTypes = {
       status: PropTypes.bool,
       likesCount: PropTypes.number,
     })
-  ).isRequired,
-  petCatWithId: PropTypes.func.isRequired,
+  )
 };
 
 export default CardsForSelectedBoard
