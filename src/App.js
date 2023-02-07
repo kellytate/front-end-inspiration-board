@@ -1,7 +1,10 @@
-import "./App.css";
-import CardsForSelectedBoard from "./components/CardsForSelectedBoard";
 import { useState } from "react";
 import axios from "axios";
+import './App.css';
+import DUMMY_DATA from "../src/data/boards.json"
+import NewBoardForm from './components/NewBoardForm';
+import BoardsList from "./components/BoardsList";
+import CardsForSelectedBoard from "./components/CardsForSelectedBoard";
 
 const transformResponse = (card) => {
   const {
@@ -14,27 +17,11 @@ const transformResponse = (card) => {
   return { id, status, message, likesCount, boardId };
 };
 
+
 function App() {
-  const [cardData, setCardData] = useState([
-    {
-      id: 1,
-      message: "hello",
-      likes_count: 0,
-      status: true,
-    },
-    {
-      id: 2,
-      message: "ocelot",
-      likes_count: 0,
-      status: true,
-    },
-    {
-      id: 3,
-      message: "awesome",
-      likes_count: 3,
-      status: true,
-    },
-  ]);
+
+  const [cardData, setCardData] = useState(DUMMY_DATA[0].cards);
+  const [boardsList, setBoardList] = useState(DUMMY_DATA);
 
   // const updateCardData = (id) => {
   //   likeCardWithId(id).then((updatedCard) => {
@@ -48,6 +35,13 @@ function App() {
   //     });
   //   });
   // };
+  
+  
+  const handleUpdatedBoard = (newBoard) => {
+    // POST 
+    const newBoardsList = boardsList.push({...newBoard, id:boardsList.length + 1})
+    setBoardList(newBoardsList);
+  }
 
   const onUpdateLike = (updatedCard) => {
     const cards = cardData.map((card) => {
@@ -73,16 +67,20 @@ function App() {
 
   return (
     <div className="App">
-      <div>
-        <h3>SELECTED BOARD TITLE GOES HERE</h3>
-        {/* <h3>{selectedBoard.title} created by {selectedBoard.owner} </h3>*/}
-        <CardsForSelectedBoard
-          cardData={cardData}
-          onUpdateLike={onUpdateLike}
-          onRemove={onRemove}
-        />
+      <main>
+        <BoardsList boards={boardsList}/>
+          <div>
+            <h3>SELECTED BOARD TITLE GOES HERE</h3>
+            {/* <h3>{selectedBoard.title} created by {selectedBoard.owner} </h3>*/}
+            <CardsForSelectedBoard
+              cardData={cardData}
+              onUpdateLike={onUpdateLike}
+              onRemove={onRemove}
+            />
+          </div>
+        <NewBoardForm onBoardUpdate={handleUpdatedBoard}/>
+        </main>
       </div>
-    </div>
   );
 }
 
