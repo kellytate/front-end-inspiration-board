@@ -1,0 +1,22 @@
+
+input {
+    margin-bottom: 0.5em;
+}
+
+button {
+    margin-top: 0.5em;
+}
+.new-board-form {
+    display: flex;
+    flex-direction: column;    
+    margin-bottom: 2em;
+    padding: 2em;
+};
+
+span {
+    display: inline;
+}
+
+#preview-label {
+    display: inline;
+}
