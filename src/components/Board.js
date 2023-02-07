@@ -1,6 +1,9 @@
-const Board = ({id, title, owner, status, cards, selected}) => {
+const Board = ({id, title, owner, status, cards, selected, onSelect}) => {
+    const selectBoardHandler = () => {
+        onSelect(id);
+    }
     return (          
-        <section>{title}</section>
+        <button onClick={selectBoardHandler}>{title}</button>
     );
 };
 

@@ -118,13 +118,64 @@ function App() {
     setCardData(cards);
   };
 
+  const HandleSelectedBoard = (id) => {
+    const updatedBoards = boardsList.map((board) => {
+      const updatedBoard = { ...board };
+      if (board.id === id) {
+        updatedBoard.selected = true;
+      } else {
+        updatedBoard.selected = false;
+      }
+      return updatedBoard;
+    });
+    setBoardList(updatedBoards);
+  };
+
+  let selectedBoard;
+  for (const board of boardsList) {
+    if (board.selected) {
+      selectedBoard = board;
+    }
+  }
+
+  const handleUpdatedCard = (newCard) => {
+    console.log(newCard);
+
+    if (!selectedBoard) {
+      console.log("No board selected");
+      return;
+    }
+
+    const requestBody = {
+      ...newCard,
+      likes_count: 0,
+      board_id: selectedBoard.id,
+      status: true,
+    };
+
+    console.log(requestBody);
+    return axios
+      .post(`${kBaseUrl}/boards/${requestBody.board_id}/cards`, {
+        message: requestBody.message,
+        likes_count: 0,
+        board_id: requestBody.board_id,
+        status: true,
+      })
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <div className="App">
       <main>
-        <BoardsList boards={boardsList} />
+        <BoardsList boards={boardsList} onSelect={HandleSelectedBoard} />
         <div>
-          <h3>SELECTED BOARD TITLE GOES HERE</h3>
-          {/* <h3>{selectedBoard.title} created by {selectedBoard.owner} </h3>*/}
+          <h3>{!selectedBoard ? "" : `${selectedBoard.title}`}</h3>
+          {/* <h3>{!selectedBoard?'':`${selectedBoard.title} created by ${selectedBoard.owner}`}</h3> */}
           <CardsForSelectedBoard
             cardData={cardData}
             onUpdateLike={onUpdateLike}
