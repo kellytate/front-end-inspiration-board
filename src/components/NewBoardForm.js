@@ -3,12 +3,14 @@ import './NewBoardForm.css'
 
 const defaultBoardData = {
     title:'', 
-    creator:''
-  }
+    owner:'',
+    cards:[],
+    status: true
+}
 
 const NewBoardForm = ({onBoardUpdate}) => {
     const [boardData, setBoardData] = useState(defaultBoardData) 
-    const {title, creator} = boardData
+    const {title, owner} = boardData
     const inputTitle = useRef()
 
     const onChange = (e) => {
@@ -38,15 +40,15 @@ const NewBoardForm = ({onBoardUpdate}) => {
                 value={title}
                 ref= {inputTitle}
             />
-            <label>creator</label>
+            <label>owner</label>
             <input 
-                name='creator' 
-                placeholder='creator' 
+                name='owner' 
+                placeholder='owner' 
                 onChange={onChange} 
-                value={creator} 
+                value={owner} 
             />
             <p id='preview-label'>preview: 
-                <span>{`${title} by ${creator}`}</span>
+                <span>{`${title} by ${owner}`}</span>
             </p>
             <button type='submit'>Submit</button>
         </form>
