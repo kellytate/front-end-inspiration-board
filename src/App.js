@@ -2,6 +2,7 @@ import { useState } from "react";
 import './App.css';
 import DUMMY_DATA from "../src/data/boards.json"
 import NewBoardForm from './components/NewBoardForm';
+import BoardsList from "./components/BoardsList";
 
 function App() {
   const [boardsList, setBoardList] = useState(DUMMY_DATA)
@@ -15,7 +16,9 @@ function App() {
   return (
     <div>
       <main>
+      <BoardsList boards={boardsList}/>
       <NewBoardForm onBoardUpdate={handleUpdatedBoard}/>
+      
       </main>
     </div>
   );
