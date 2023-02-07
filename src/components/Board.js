@@ -1,6 +1,10 @@
-const Board = ({id, title, owner, status, cards, selected}) => {
+import './Board.css'
+const Board = ({id, title, owner, status, cards, selected, onSelect}) => {
+    const selectBoardHandler = () => {
+        onSelect(id);
+    }
     return (          
-        <section>{title}</section>
+        <button className="board-title" onClick={selectBoardHandler}>{title}</button>
     );
 };
 

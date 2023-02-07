@@ -22,7 +22,7 @@ const transformResponse = (card) => {
 }
 
 const handleUpdatedCard = (newCard) => {
-  console.log(newCard);
+  // console.log(newCard);
 
   const requestBody = {
     ...newCard,
@@ -33,7 +33,7 @@ const handleUpdatedCard = (newCard) => {
   };
 
   // Need to confirm create card route with backend
-  console.log(requestBody);
+  // console.log(requestBody);
   return axios
     .post(`${kBaseUrl}/boards/${requestBody.board_id}/cards`,
     {
@@ -69,7 +69,19 @@ function App() {
   //   });
   // };
   
-  
+  const HandleSelectedBoard = (id) => {
+    const updatedBoards = boardsList.map((board)=> { 
+      const updatedBoard = {...board}
+      if (board.id === id) {
+        updatedBoard.selected = true
+      } else {
+        updatedBoard.selected = false
+      }
+      return updatedBoard;
+    })
+    setBoardList(updatedBoards);
+  }
+
   const handleUpdatedBoard = (newBoard) => {
     // POST 
     const newBoardsList = boardsList.push({...newBoard, id:boardsList.length + 1})
@@ -98,14 +110,19 @@ function App() {
     setCardData(cards);
   };
 
+  let selectedBoard;
+  for(const board of boardsList){ 
+    if (board.selected) {
+      selectedBoard = board;
+  }}
+  
   return (
-
     <div className="App">
       <main>
-        <BoardsList boards={boardsList}/>
+        <BoardsList boards={boardsList} onSelect={HandleSelectedBoard}/>
           <div>
-            <h3>SELECTED BOARD TITLE GOES HERE</h3>
-            {/* <h3>{selectedBoard.title} created by {selectedBoard.owner} </h3>*/}
+            <h3>{!selectedBoard?'':`${selectedBoard.title}`}</h3>
+            {/* <h3>{!selectedBoard?'':`${selectedBoard.title} created by ${selectedBoard.owner}`}</h3> */}
             <CardsForSelectedBoard
               cardData={cardData}
               onUpdateLike={onUpdateLike}
