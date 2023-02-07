@@ -21,35 +21,6 @@ const transformResponse = (card) => {
   return { id, message, likesCount, boardId, status };
 }
 
-const handleUpdatedCard = (newCard) => {
-  console.log(newCard);
-
-  const requestBody = {
-    ...newCard,
-    likes_count: 0,
-    board_id: 1,
-    // board_id: cardState.id,
-    status: true,
-  };
-
-  // Need to confirm create card route with backend
-  console.log(requestBody);
-  return axios
-    .post(`${kBaseUrl}/boards/${requestBody.board_id}/cards`,
-    {
-      message: requestBody.message,
-      likes_count: 0,
-      board_id: requestBody.board_id,
-      status: true,
-    })
-    .then((response) => {
-      return response.data;
-    })
-    .catch((error) => {
-      console.log(error);
-    });
-
-};
 
 function App() {
 
@@ -68,13 +39,13 @@ function App() {
   //     });
   //   });
   // };
-  
+
   const handleUpdatedBoard = (newBoard) => {
     // POST 
     const newBoardsList = boardsList.push({...newBoard, id:boardsList.length + 1})
     setBoardList(newBoardsList);
   }
-
+  
   const onUpdateLike = (updatedCard) => {
     const cards = cardData.map((card) => {
       if (card.id === updatedCard.id) {
@@ -115,6 +86,39 @@ function App() {
     if (board.selected) {
       selectedBoard = board;
   }}
+
+  const handleUpdatedCard = (newCard) => {
+    console.log(newCard);
+    
+    if (!selectedBoard) {
+      console.log('No board selected');
+      return;
+    }
+    
+    const requestBody = {
+      ...newCard,
+      likes_count: 0,
+      board_id: selectedBoard.id,
+      status: true,
+    };
+  
+    console.log(requestBody);
+    return axios
+      .post(`${kBaseUrl}/boards/${requestBody.board_id}/cards`,
+      {
+        message: requestBody.message,
+        likes_count: 0,
+        board_id: requestBody.board_id,
+        status: true,
+      })
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  
+  };
   
   return (
     <div className="App">
@@ -130,7 +134,7 @@ function App() {
             />
           </div>
         <NewBoardForm onBoardUpdate={handleUpdatedBoard}/>
-        <CreateNewCard onCardUpdate={handleUpdatedCard} />
+        <CreateNewCard onCardUpdate={handleUpdatedCard}/>
         </main>
       </div>
   );
