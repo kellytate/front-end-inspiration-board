@@ -27,16 +27,6 @@ const CreateNewCard = ( {onCardUpdate }) => {
     inputMessage.current.focus();
   }
 
-  // const formSubmit = (event) => {
-  //   event.preventDefault();
-  //   onCardDataReady(formField);
-  //   setFormField(kDefaultFormState);
-  // };
-
-  // const onMessageChange = (event) => {
-  //   setFormField({message: event.target.value});
-  // };
-
   return (
     <form className='new-card-form' onSubmit={cardFormSubmitHandler}>
             <h2> CREATE A NEW CARD</h2>
