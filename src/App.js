@@ -22,7 +22,7 @@ const transformResponse = (card) => {
 }
 
 const handleUpdatedCard = (newCard) => {
-  // console.log(newCard);
+  console.log(newCard);
 
   const requestBody = {
     ...newCard,
@@ -33,7 +33,7 @@ const handleUpdatedCard = (newCard) => {
   };
 
   // Need to confirm create card route with backend
-  // console.log(requestBody);
+  console.log(requestBody);
   return axios
     .post(`${kBaseUrl}/boards/${requestBody.board_id}/cards`,
     {
@@ -69,6 +69,12 @@ function App() {
   //   });
   // };
   
+  const handleUpdatedBoard = (newBoard) => {
+    // POST 
+    const newBoardsList = boardsList.push({...newBoard, id:boardsList.length + 1})
+    setBoardList(newBoardsList);
+  }
+
   const HandleSelectedBoard = (id) => {
     const updatedBoards = boardsList.map((board)=> { 
       const updatedBoard = {...board}
@@ -80,12 +86,6 @@ function App() {
       return updatedBoard;
     })
     setBoardList(updatedBoards);
-  }
-
-  const handleUpdatedBoard = (newBoard) => {
-    // POST 
-    const newBoardsList = boardsList.push({...newBoard, id:boardsList.length + 1})
-    setBoardList(newBoardsList);
   }
 
   const onUpdateLike = (updatedCard) => {
