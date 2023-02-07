@@ -20,7 +20,7 @@
         }
     ],
     "status": true,
-    "seleted": false
+    "selected": false
     },
     {
     "id": 2,
@@ -50,7 +50,7 @@
         }
     ],
     "status": true,
-    "seleted": false
+    "selected": false
     },
     {
     "id": 3,
@@ -58,6 +58,6 @@
     "owner":"Elaine",      
     "cards":[],
     "status": true,
-    "seleted": false
+    "selected": false
     }
 ]
