@@ -19,7 +19,8 @@
         "board_id": 1
         }
     ],
-    "status": true
+    "status": true,
+    "seleted": false
     },
     {
     "id": 2,
@@ -48,13 +49,15 @@
         "board_id": 1
         }
     ],
-    "status": true
+    "status": true,
+    "seleted": false
     },
     {
     "id": 3,
     "title":"Project Idea",
     "owner":"Elaine",      
     "cards":[],
-    "status": true
+    "status": true,
+    "seleted": false
     }
 ]

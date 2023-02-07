@@ -14,6 +14,7 @@ const BoardsList = ({boards}) => {
                             owner={board.owner}
                             status={board.status}
                             cards={board.cards}
+                            selected={board.selected}
                         />
                     </li>)
             })}
