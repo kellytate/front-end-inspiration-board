@@ -33,7 +33,7 @@ CardsForSelectedBoard.propTypes = {
     })
   ).isRequired,
   onUpdateLike: PropTypes.func.isRequired,
-  onRemove: PropTypes.func.isRequired
+  onRemove: PropTypes.func.isRequired,
 };
 
 export default CardsForSelectedBoard;
