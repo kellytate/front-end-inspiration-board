@@ -22,14 +22,21 @@ const handleUpdatedCard = (newCard) => {
   const requestBody = {
     ...newCard,
     likes_count: 0,
-    board_id: cardState.id,
+    board_id: 1,
+    // board_id: cardState.id,
     status: true,
   };
 
   // Need to confirm create card route with backend
   console.log(requestBody);
   return axios
-    .post(`${kBaseUrl}/boards/${boardId}/cards`, [requestBody])
+    .post(`${kBaseUrl}/boards/${requestBody.board_id}/cards`,
+    {
+      message: requestBody.message,
+      likes_count: 0,
+      board_id: requestBody.board_id,
+      status: true,
+    })
     .then((response) => {
       return response.data;
     })
@@ -40,23 +47,6 @@ const handleUpdatedCard = (newCard) => {
 };
 
 function App() {
-  // const [newCardData, setCardData] = useState(
-  //   [{
-  //     message: '',
-  //   }]
-  // );
-
-  // const onCardDataReady = (formData) => {
-
-  //   createCard(formData)
-  //   // .then((newCard) => {
-  //   //   setCardData(newCard);
-  //   // })
-  //   // .catch((error) => {
-  //   //   console.log(error);
-  //   // });
-  // };
-
   return (
     <main>
       <section>
