@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import axios from "axios";
 import './App.css';
@@ -5,18 +6,50 @@ import DUMMY_DATA from "../src/data/boards.json"
 import NewBoardForm from './components/NewBoardForm';
 import BoardsList from "./components/BoardsList";
 import CardsForSelectedBoard from "./components/CardsForSelectedBoard";
+import CreateNewCard from './components/CreateNewCard';
+
+const kBaseUrl = "http://127.0.0.1:5000";
 
 const transformResponse = (card) => {
   const {
     id,
-    status,
     message,
     likes_count: likesCount,
     board_id: boardId,
+    status,
   } = card;
-  return { id, status, message, likesCount, boardId };
-};
+  return { id, message, likesCount, boardId, status };
+}
 
+const handleUpdatedCard = (newCard) => {
+  console.log(newCard);
+
+  const requestBody = {
+    ...newCard,
+    likes_count: 0,
+    board_id: 1,
+    // board_id: cardState.id,
+    status: true,
+  };
+
+  // Need to confirm create card route with backend
+  console.log(requestBody);
+  return axios
+    .post(`${kBaseUrl}/boards/${requestBody.board_id}/cards`,
+    {
+      message: requestBody.message,
+      likes_count: 0,
+      board_id: requestBody.board_id,
+      status: true,
+    })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+};
 
 function App() {
 
@@ -66,6 +99,7 @@ function App() {
   };
 
   return (
+
     <div className="App">
       <main>
         <BoardsList boards={boardsList}/>
@@ -79,6 +113,7 @@ function App() {
             />
           </div>
         <NewBoardForm onBoardUpdate={handleUpdatedBoard}/>
+        <CreateNewCard onCardUpdate={handleUpdatedCard} />
         </main>
       </div>
   );
