@@ -1,35 +1,40 @@
-import React from 'react';
-import Card from './Card.js';
+import React from "react";
+import Card from "./Card";
 import PropTypes from "prop-types";
 
-const CardsForSelectedBoard = ({cardData}) => {
+const CardsForSelectedBoard = ({ cardData, onUpdateLike, onRemove }) => {
   const cardComponents = cardData.map((card) => {
     return (
       <Card
-        key={card.id}
         id={card.id}
-        boardId={card.boardId}
+        key={card.id}
         status={card.status}
         message={card.message}
-        likesCount={card.likesCount}
+        likesCount={card.likes_count}
+        onUpdateLike={onUpdateLike}
+        onRemove={onRemove}
       />
-    )
-  })
+    );
+  });
   return (
-    <>{cardComponents}</>
-  )
-}
+    <section>
+      <ul>{cardComponents}</ul>
+    </section>
+  );
+};
 
 CardsForSelectedBoard.propTypes = {
   cardData: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
       message: PropTypes.string,
-      boardId: PropTypes.number,
       status: PropTypes.bool,
       likesCount: PropTypes.number,
     })
+  ).isRequired,
+  onUpdateLike: PropTypes.func.isRequired,
+  onRemove: PropTypes.func.isRequired,
   )
 };
 
-export default CardsForSelectedBoard
+export default CardsForSelectedBoard;
