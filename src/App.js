@@ -1,7 +1,8 @@
-import "./App.css";
-import CardsForSelectedBoard from "./components/CardsForSelectedBoard";
-import DUMMY_DATA from "../src/data/boards.json"
 import { useState } from "react";
+import './App.css';
+import DUMMY_DATA from "../src/data/boards.json"
+import NewBoardForm from './components/NewBoardForm';
+import CardsForSelectedBoard from "./components/CardsForSelectedBoard";
 
 const transformResponse = (card) => {
   const {
@@ -15,10 +16,18 @@ const transformResponse = (card) => {
 };
 
 function App() {
-  const [cardState, setCardState] = useState(DUMMY_DATA);
+  const [cardState, setCardState] = useState(DUMMY_DATA[0].cards);
+  const [boardsList, setBoardList] = useState(DUMMY_DATA)
+
+  const handleUpdatedBoard = (newBoard) => {
+    // POST 
+    const newBoardsList = boardsList.push({...newBoard, id:boardsList.length + 1})
+    setBoardList(newBoardsList);
+  }
   return (
     <div className="App">
       <CardsForSelectedBoard cardData={cardState[0].cards} />
+      <NewBoardForm onBoardUpdate={handleUpdatedBoard}/>
     </div>
   );
 }
