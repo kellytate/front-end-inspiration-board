@@ -75,19 +75,6 @@ function App() {
     setBoardList(newBoardsList);
   }
 
-  const HandleSelectedBoard = (id) => {
-    const updatedBoards = boardsList.map((board)=> { 
-      const updatedBoard = {...board}
-      if (board.id === id) {
-        updatedBoard.selected = true
-      } else {
-        updatedBoard.selected = false
-      }
-      return updatedBoard;
-    })
-    setBoardList(updatedBoards);
-  }
-
   const onUpdateLike = (updatedCard) => {
     const cards = cardData.map((card) => {
       if (card.id === updatedCard.id) {
@@ -110,6 +97,19 @@ function App() {
     setCardData(cards);
   };
 
+  const HandleSelectedBoard = (id) => {
+    const updatedBoards = boardsList.map((board)=> { 
+      const updatedBoard = {...board}
+      if (board.id === id) {
+        updatedBoard.selected = true
+      } else {
+        updatedBoard.selected = false
+      }
+      return updatedBoard;
+    })
+    setBoardList(updatedBoards);
+  }
+  
   let selectedBoard;
   for(const board of boardsList){ 
     if (board.selected) {
