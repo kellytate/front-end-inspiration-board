@@ -16,15 +16,17 @@ const transformResponse = (card) => {
   return { id, message, likesCount, boardId, status };
 }
 
-const handleUpdatedCard = (newCard, boardId) => {
+const handleUpdatedCard = (newCard) => {
   console.log(newCard);
+
   const requestBody = {
     ...newCard,
     likes_count: 0,
-    board_id: '',
+    board_id: cardState.id,
     status: true,
   };
 
+  // Need to confirm create card route with backend
   console.log(requestBody);
   return axios
     .post(`${kBaseUrl}/boards/${boardId}/cards`, [requestBody])
