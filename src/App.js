@@ -89,6 +89,31 @@ function App() {
 
   const handleUpdatedBoard = (newBoard) => {
     // POST 
+
+    const requestBody = {
+      ...newBoard,
+      cards: [],
+      status: true,
+      selected: false,
+    };
+
+    console.log(requestBody);
+    axios
+      .post(`${kBaseUrl}/boards`,
+      {
+        title: requestBody.title,
+        owner: requestBody.owner,
+        status: true,
+        selected: false,
+        cards: [],
+      })
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
     const newBoardsList = [...boardsList]
     newBoardsList.push({...newBoard, id:boardsList.length + 1})
     setBoardList(newBoardsList);
@@ -149,13 +174,12 @@ function App() {
     
     const requestBody = {
       ...newCard,
-      // likes_count: 0,
       board_id: selectedBoard.id,
       status: true,
     };
   
     console.log(requestBody);
-    return axios
+    axios
       .post(`${kBaseUrl}/boards/${requestBody.board_id}/cards`,
       {
         message: requestBody.message,
@@ -169,7 +193,6 @@ function App() {
       .catch((error) => {
         console.log(error);
       });
-  
   };
 
   return (
