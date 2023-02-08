@@ -100,6 +100,10 @@ function App() {
     // const requestBody = {
     //   ...newBoard
     // };
+    if (!newBoard.title || !newBoard.owner) {
+      alert('Please enter a title and owner!');
+      return;
+    }
 
     console.log(newBoard);
     axios
@@ -235,10 +239,14 @@ function App() {
   };
     
   const handleUpdatedCard = (newCard) => {
-    console.log(newCard);
+    // console.log(newCard);
+    if (!newCard.message) {
+      alert('Please enter a message!');
+      return
+    }
 
-    if (!selectedBoard) {
-      console.log("No board selected");
+    if (!selectedBoard){
+      alert('Please select a board!');
       return;
     }
 
