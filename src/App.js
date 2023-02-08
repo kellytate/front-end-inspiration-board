@@ -21,9 +21,14 @@ const transformResponse = (card) => {
   return { id, message, likesCount, boardId, status };
 }
 
+const INIT_DATA = DUMMY_DATA.map(board => {
+  const reformedCards = board.cards.map(card=> transformResponse(card))
+  return {...board, cards:reformedCards}
+})
+
 function App() {
   const [cardData, setCardData] = useState(DUMMY_DATA[0].cards);
-  const [boardsList, setBoardList] = useState(DUMMY_DATA);
+  const [boardsList, setBoardList] = useState(INIT_DATA);
 
   // const updateCardData = (id) => {
   //   likeCardWithId(id).then((updatedCard) => {
@@ -118,7 +123,7 @@ function App() {
       });
   
   };
-  console.log("boardsList", boardsList);
+  
   return (
     <div className="App">
       <main>
