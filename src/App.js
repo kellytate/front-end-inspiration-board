@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import './App.css';
 import DUMMY_DATA from "../src/data/boards.json"
@@ -10,7 +10,7 @@ import CreateNewCard from './components/CreateNewCard';
 
 const kBaseUrl = "http://127.0.0.1:5000";
 
-const transformResponse = (card) => {
+const transformCardResponse = (card) => {
   const {
     id,
     message,
@@ -21,11 +21,25 @@ const transformResponse = (card) => {
   return { id, message, likesCount, boardId, status };
 }
 
+const getAllBoards = () => {
+  return axios
+    .get(`${kBaseUrl}/boards`)
+    .then((response) => {
+      console.log(response.data)
+      return response.data;
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
 
 function App() {
-
   const [cardData, setCardData] = useState(DUMMY_DATA[0].cards);
   const [boardsList, setBoardList] = useState(DUMMY_DATA);
+
+  // const [cardData, setCardData] = useState([]);
+  // const [boardsList, setBoardList] = useState([]);
+  
 
   // const updateCardData = (id) => {
   //   likeCardWithId(id).then((updatedCard) => {
@@ -40,8 +54,20 @@ function App() {
   //   });
   // };
 
+  const fetchBoards = () => {
+    getAllBoards().then((boards) => {
+      setBoardList(boards);
+    });
+  };
+
+  useEffect(() => {
+    fetchBoards();
+  }, []);
+
   const handleUpdatedBoard = (newBoard) => {
+
     // POST 
+
     const newBoardsList = boardsList.push({...newBoard, id:boardsList.length + 1})
     setBoardList(newBoardsList);
   }
@@ -68,24 +94,27 @@ function App() {
     setCardData(cards);
   };
 
+
   const HandleSelectedBoard = (id) => {
     const updatedBoards = boardsList.map((board)=> { 
       const updatedBoard = {...board}
       if (board.id === id) {
-        updatedBoard.selected = true
+        updatedBoard.selected = true;
       } else {
-        updatedBoard.selected = false
+        updatedBoard.selected = false;
       }
       return updatedBoard;
     })
     setBoardList(updatedBoards);
+    
   }
-  
+    
   let selectedBoard;
   for(const board of boardsList){ 
     if (board.selected) {
       selectedBoard = board;
-  }}
+    }
+  }
 
   const handleUpdatedCard = (newCard) => {
     console.log(newCard);
