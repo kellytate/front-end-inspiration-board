@@ -21,9 +21,7 @@ const transformResponse = (card) => {
   return { id, message, likesCount, boardId, status };
 }
 
-
 function App() {
-
   const [cardData, setCardData] = useState(DUMMY_DATA[0].cards);
   const [boardsList, setBoardList] = useState(DUMMY_DATA);
 
@@ -42,7 +40,8 @@ function App() {
 
   const handleUpdatedBoard = (newBoard) => {
     // POST 
-    const newBoardsList = boardsList.push({...newBoard, id:boardsList.length + 1})
+    const newBoardsList = [...boardsList]
+    newBoardsList.push({...newBoard, id:boardsList.length + 1})
     setBoardList(newBoardsList);
   }
   
@@ -119,7 +118,7 @@ function App() {
       });
   
   };
-  
+  console.log("boardsList", boardsList);
   return (
     <div className="App">
       <main>
