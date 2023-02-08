@@ -21,6 +21,7 @@ const transformCardResponse = (card) => {
   return { id, message, likesCount, boardId, status };
 }
 
+
 const getAllBoards = () => {
   return axios
     .get(`${kBaseUrl}/boards`)
@@ -33,9 +34,15 @@ const getAllBoards = () => {
     });
 };
 
+const INIT_DATA = DUMMY_DATA.map(board => {
+  const reformedCards = board.cards.map(card=> transformResponse(card))
+  return {...board, cards:reformedCards}
+})
+
+
 function App() {
   const [cardData, setCardData] = useState(DUMMY_DATA[0].cards);
-  const [boardsList, setBoardList] = useState(DUMMY_DATA);
+  const [boardsList, setBoardList] = useState(INIT_DATA);
 
   // const [cardData, setCardData] = useState([]);
   // const [boardsList, setBoardList] = useState([]);
@@ -65,10 +72,9 @@ function App() {
   }, []);
 
   const handleUpdatedBoard = (newBoard) => {
-
     // POST 
-
-    const newBoardsList = boardsList.push({...newBoard, id:boardsList.length + 1})
+    const newBoardsList = [...boardsList]
+    newBoardsList.push({...newBoard, id:boardsList.length + 1})
     setBoardList(newBoardsList);
   }
   

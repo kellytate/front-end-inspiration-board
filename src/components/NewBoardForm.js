@@ -5,7 +5,8 @@ const defaultBoardData = {
     title:'', 
     owner:'',
     cards:[],
-    status: true
+    status: true,
+    selected: false
 }
 
 const NewBoardForm = ({onBoardUpdate}) => {
