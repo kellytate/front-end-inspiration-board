@@ -20,6 +20,11 @@ const transformCardResponse = (card) => {
   return { id, message, likesCount, boardId, status };
 };
 
+const INIT_DATA = DUMMY_DATA.map((board) => {
+  const reformedCards = board.cards.map((card) => transformCardResponse(card));
+  return { ...board, cards: reformedCards };
+});
+
 const getAllBoards = () => {
   return axios
     .get(`${kBaseUrl}/boards`)
@@ -28,6 +33,7 @@ const getAllBoards = () => {
     })
     .catch((error) => {
       console.log(error);
+      return INIT_DATA; //this will be deleted after connecting with Back-end
     });
 };
 
@@ -42,29 +48,9 @@ const getCardsForSelectedBoard = (id) => {
     });
 };
 
-const INIT_DATA = DUMMY_DATA.map((board) => {
-  const reformedCards = board.cards.map((card) => transformCardResponse(card));
-  return { ...board, cards: reformedCards };
-});
-
-const getCards = () => {
-  return axios
-    .get(`${kBaseUrl}/id/cards`)
-    .then((response) => {
-      return response.data.map(transformCardResponse);
-    })
-    .catch((err) => {
-      alert(err);
-      throw new Error("error! cannot fetch cards");
-    });
-};
-
 function App() {
   const [cardData, setCardData] = useState([]);
   const [boardsList, setBoardList] = useState(INIT_DATA);
-
-  // const [cardData, setCardData] = useState([]);
-  // const [boardsList, setBoardList] = useState([]);
 
   // const updateCardData = (id) => {
   //   likeCardWithId(id).then((updatedCard) => {
@@ -127,25 +113,39 @@ function App() {
   };
 
   const onUpdateLike = (updatedCard) => {
-    const cards = cardData.map((card) => {
-      if (card.id === updatedCard.id) {
-        return updatedCard;
-      } else {
-        return card;
-      }
+    const updatedBoards = boardsList.map((board) => {
+      const updatedCards = board.cards.map((card) => {
+        if (
+          card.id === updatedCard.id &&
+          card.boardId === updatedCard.boardId
+        ) {
+          return updatedCard;
+        } else {
+          return card;
+        }
+      });
+      const updatedBoard = { ...board, cards: updatedCards };
+      return updatedBoard;
     });
-    setCardData(cards);
+    setBoardList(updatedBoards);
   };
 
   const onRemove = (updatedCard) => {
-    const cards = cardData.map((card) => {
-      if (card.id === updatedCard.id) {
-        return updatedCard;
-      } else {
-        return card;
-      }
+    const updatedBoards = boardsList.map((board) => {
+      const cards = board.cards.map((card) => {
+        if (
+          card.id === updatedCard.id &&
+          card.boardId === updatedCard.boardId
+        ) {
+          return updatedCard;
+        } else {
+          return card;
+        }
+      });
+      const updatedBoard = { ...board, cards: cards };
+      return updatedBoard;
     });
-    setCardData(cards);
+    setBoardList(updatedBoards);
   };
 
   const HandleSelectedBoard = (id) => {
@@ -208,7 +208,7 @@ function App() {
           <h3>{!selectedBoard ? "" : `${selectedBoard.title}`}</h3>
           {/* <h3>{!selectedBoard?'':`${selectedBoard.title} created by ${selectedBoard.owner}`}</h3> */}
           <CardsForSelectedBoard
-            cardData={cardData}
+            cardData={selectedBoard ? selectedBoard.cards : []}
             onUpdateLike={onUpdateLike}
             onRemove={onRemove}
           />
