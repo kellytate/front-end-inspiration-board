@@ -5,7 +5,7 @@ const Card = (props) => {
   const onClickUpdateCard = () => {
     const updateCard = {
       ...props,
-      likes_count: props.likesCount + 1,
+      likesCount: props.likesCount + 1,
     };
     props.onUpdateLike(updateCard);
   };

@@ -9,7 +9,7 @@ import CreateNewCard from "./components/CreateNewCard";
 
 const kBaseUrl = "http://127.0.0.1:5000";
 
-const transformResponse = (card) => {
+const transformCardResponse = (card) => {
   const {
     id,
     message,
@@ -20,26 +20,9 @@ const transformResponse = (card) => {
   return { id, message, likesCount, boardId, status };
 };
 
-const handleUpdatedCard = (newCard) => {
-  console.log(newCard);
-
-  const requestBody = {
-    ...newCard,
-    likes_count: 0,
-    board_id: 1,
-    // board_id: cardState.id,
-    status: true,
-  };
-
-  // Need to confirm create card route with backend
-  console.log(requestBody);
+const getAllBoards = () => {
   return axios
-    .post(`${kBaseUrl}/boards/${requestBody.board_id}/cards`, {
-      message: requestBody.message,
-      likes_count: 0,
-      board_id: requestBody.board_id,
-      status: true,
-    })
+    .get(`${kBaseUrl}/boards`)
     .then((response) => {
       return response.data;
     })
@@ -48,11 +31,27 @@ const handleUpdatedCard = (newCard) => {
     });
 };
 
+const getCardsForSelectedBoard = (id) => {
+  return axios
+    .get(`${kBaseUrl}/boards/${id}/cards`)
+    .then((response) => {
+      return response.data.map(transformCardResponse);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+const INIT_DATA = DUMMY_DATA.map((board) => {
+  const reformedCards = board.cards.map((card) => transformCardResponse(card));
+  return { ...board, cards: reformedCards };
+});
+
 const getCards = () => {
   return axios
     .get(`${kBaseUrl}/id/cards`)
     .then((response) => {
-      return response.data.map(transformResponse);
+      return response.data.map(transformCardResponse);
     })
     .catch((err) => {
       alert(err);
@@ -61,18 +60,11 @@ const getCards = () => {
 };
 
 function App() {
-  const [cardData, setCardData] = useState(DUMMY_DATA[0].cards);
-  const [boardsList, setBoardList] = useState(DUMMY_DATA);
+  const [cardData, setCardData] = useState([]);
+  const [boardsList, setBoardList] = useState(INIT_DATA);
 
-  const fetchCards = () => {
-    getCards().then((cards) => {
-      setCardData(cards);
-    });
-  };
-
-  useEffect(() => {
-    fetchCards();
-  }, [PUT_SELECTED_BOARD_STATE_HERE]);
+  // const [cardData, setCardData] = useState([]);
+  // const [boardsList, setBoardList] = useState([]);
 
   // const updateCardData = (id) => {
   //   likeCardWithId(id).then((updatedCard) => {
@@ -87,12 +79,50 @@ function App() {
   //   });
   // };
 
+  const fetchBoards = () => {
+    getAllBoards().then((boards) => {
+      setBoardList(boards);
+    });
+  };
+
+  useEffect(() => {
+    fetchBoards();
+  }, []);
+
+  const fetchCards = (id) => {
+    getCardsForSelectedBoard(id).then((cards) => {
+      setCardData(cards);
+    });
+  };
+
   const handleUpdatedBoard = (newBoard) => {
     // POST
-    const newBoardsList = boardsList.push({
+
+    const requestBody = {
       ...newBoard,
-      id: boardsList.length + 1,
-    });
+      cards: [],
+      status: true,
+      selected: false,
+    };
+
+    console.log(requestBody);
+    axios
+      .post(`${kBaseUrl}/boards`, {
+        title: requestBody.title,
+        owner: requestBody.owner,
+        status: true,
+        selected: false,
+        cards: [],
+      })
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    const newBoardsList = [...boardsList];
+    newBoardsList.push({ ...newBoard, id: boardsList.length + 1 });
     setBoardList(newBoardsList);
   };
 
@@ -123,12 +153,14 @@ function App() {
       const updatedBoard = { ...board };
       if (board.id === id) {
         updatedBoard.selected = true;
+        selectedBoard = board;
       } else {
         updatedBoard.selected = false;
       }
       return updatedBoard;
     });
     setBoardList(updatedBoards);
+    fetchCards(id);
   };
 
   let selectedBoard;
@@ -148,20 +180,19 @@ function App() {
 
     const requestBody = {
       ...newCard,
-      likes_count: 0,
       board_id: selectedBoard.id,
       status: true,
     };
 
     console.log(requestBody);
-    return axios
+    axios
       .post(`${kBaseUrl}/boards/${requestBody.board_id}/cards`, {
         message: requestBody.message,
-        likes_count: 0,
         board_id: requestBody.board_id,
         status: true,
       })
       .then((response) => {
+        console.log(requestBody);
         return response.data;
       })
       .catch((error) => {
