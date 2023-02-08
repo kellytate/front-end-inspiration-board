@@ -21,18 +21,28 @@ const transformCardResponse = (card) => {
   return { id, message, likesCount, boardId, status };
 }
 
-
 const getAllBoards = () => {
   return axios
     .get(`${kBaseUrl}/boards`)
     .then((response) => {
-      console.log(response.data)
       return response.data;
     })
     .catch((error) => {
       console.log(error);
     });
 };
+
+const getCardsForSelectedBoard = (id) => {
+  return axios
+    .get(`${kBaseUrl}/boards/${id}/cards`)
+    .then((response) => {
+      return response.data.map(transformCardResponse);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
 
 const INIT_DATA = DUMMY_DATA.map(board => {
   const reformedCards = board.cards.map(card=> transformCardResponse(card))
@@ -41,7 +51,7 @@ const INIT_DATA = DUMMY_DATA.map(board => {
 
 
 function App() {
-  const [cardData, setCardData] = useState(DUMMY_DATA[0].cards);
+  const [cardData, setCardData] = useState([]);
   const [boardsList, setBoardList] = useState(INIT_DATA);
 
   // const [cardData, setCardData] = useState([]);
@@ -70,6 +80,12 @@ function App() {
   useEffect(() => {
     fetchBoards();
   }, []);
+
+  const fetchCards = (id) => {
+    getCardsForSelectedBoard(id).then((cards) => {
+      setCardData(cards);
+    })
+  }
 
   const handleUpdatedBoard = (newBoard) => {
     // POST 
@@ -100,22 +116,23 @@ function App() {
     setCardData(cards);
   };
 
-
+  let selectedBoard;
+  
   const HandleSelectedBoard = (id) => {
     const updatedBoards = boardsList.map((board)=> { 
       const updatedBoard = {...board}
       if (board.id === id) {
         updatedBoard.selected = true;
+        selectedBoard = board;
       } else {
         updatedBoard.selected = false;
       }
       return updatedBoard;
     })
     setBoardList(updatedBoards);
-    
+    fetchCards(id);
   }
     
-  let selectedBoard;
   for(const board of boardsList){ 
     if (board.selected) {
       selectedBoard = board;
@@ -132,7 +149,7 @@ function App() {
     
     const requestBody = {
       ...newCard,
-      likes_count: 0,
+      // likes_count: 0,
       board_id: selectedBoard.id,
       status: true,
     };
@@ -142,11 +159,11 @@ function App() {
       .post(`${kBaseUrl}/boards/${requestBody.board_id}/cards`,
       {
         message: requestBody.message,
-        likes_count: 0,
         board_id: requestBody.board_id,
         status: true,
       })
       .then((response) => {
+        console.log(requestBody);
         return response.data;
       })
       .catch((error) => {
