@@ -8,6 +8,7 @@ const CardsForSelectedBoard = ({ cardData, onUpdateLike, onRemove }) => {
       <Card
         id={card.id}
         key={card.id}
+        boardId={card.boardId}
         status={card.status}
         message={card.message}
         likesCount={card.likesCount}
