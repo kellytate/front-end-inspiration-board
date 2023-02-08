@@ -35,7 +35,7 @@ const getAllBoards = () => {
 };
 
 const INIT_DATA = DUMMY_DATA.map(board => {
-  const reformedCards = board.cards.map(card=> transformResponse(card))
+  const reformedCards = board.cards.map(card=> transformCardResponse(card))
   return {...board, cards:reformedCards}
 })
 
@@ -154,7 +154,7 @@ function App() {
       });
   
   };
-  
+
   return (
     <div className="App">
       <main>
