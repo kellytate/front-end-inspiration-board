@@ -1,8 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "./App.css";
-import INIT_BOARDS from "../src/data/boards.json";
-import DUMMY_CARDS from "../src/data/card.json";
+import DUMMY_DATA from "../src/data/boards.json";
 import NewBoardForm from "./components/NewBoardForm";
 import BoardsList from "./components/BoardsList";
 import CardsForSelectedBoard from "./components/CardsForSelectedBoard";
@@ -21,7 +20,10 @@ const transformCardResponse = (card) => {
   return { id, message, likesCount, boardId, status };
 };
 
-const INIT_CARDS = DUMMY_CARDS.map(card=> transformCardResponse(card))
+const INIT_DATA = DUMMY_DATA.map((board) => {
+  const reformedCards = board.cards.map((card) => transformCardResponse(card));
+  return { ...board, cards: reformedCards };
+});
 
 const getAllBoards = () => {
   return axios
@@ -31,7 +33,7 @@ const getAllBoards = () => {
     })
     .catch((error) => {
       console.log(error);
-      return INIT_BOARDS; //this will be deleted after connecting with Back-end
+      return INIT_DATA; //this will be deleted after connecting with Back-end
     });
 };
 
@@ -44,13 +46,12 @@ const getCardsForSelectedBoard = (id) => {
     })
     .catch((error) => {
       console.log(error);
-      return INIT_CARDS.filter(card => card.boardId === id)
     });
 };
 
 function App() {
   const [cardData, setCardData] = useState([]);
-  const [boardsList, setBoardList] = useState(INIT_BOARDS);
+  const [boardsList, setBoardList] = useState(INIT_DATA);
 
   // const updateCardData = (id) => {
   //   likeCardWithId(id).then((updatedCard) => {
@@ -74,6 +75,8 @@ function App() {
   useEffect(() => {
     fetchBoards();
   }, []);
+
+
 
   const fetchCards = (id) => {
     getCardsForSelectedBoard(id).then((cards) => {
@@ -117,33 +120,24 @@ function App() {
         console.log(error);
       });
 
-      setBoardList((boardsList)=>{
-        const newBoardsList = [...boardsList]
-        newBoardsList.push({...newBoard, id:boardsList.length + 1})
-        return newBoardsList
-      });
+    
+
+      
+    const newBoardsList = [...boardsList]
+    newBoardsList.push({...newBoard, id:boardsList.length + 1})
+    setBoardList(newBoardsList);
+  }
+  
+  let selectedBoard;
+  for(const board of boardsList){ 
+    if (board.selected) {
+      selectedBoard = board;
+    }
   }
 
-  const HandleSelectedBoard = (id) => {
-    const updatedBoards = boardsList.map((board) => {
-      const updatedBoard = { ...board };
-      if (board.id === id) {
-        updatedBoard.selected = true;
-        selectedBoard = board;
-      } else {
-        updatedBoard.selected = false;
-      }
-      return updatedBoard;
-    });
-    setBoardList(updatedBoards);
-    fetchCards(id);
-  };
 
-  const selectBoard = boardsList.filter( board => {
-    return board.selected === true;
-  })
-  let selectedBoard = selectBoard[0]
-   // This is the code for managing likes in state and through the API call 
+
+  // This is the code for managing likes in state and through the API call 
   const onUpdateLike = (updatedCard) => {
     const cards = cardData.map((card) => {
       if (card.id === updatedCard.id) {
@@ -163,6 +157,23 @@ function App() {
       }); 
   };
 
+
+  // This is Elaine's code managing like via the boardsList
+  // const onUpdateLike = (updatedCard) => {
+  //   const updatedBoards = boardsList.map(board => {
+  //     const updatedCards = board.cards.map((card) => {
+  //       if ((card.id === updatedCard.id) && (card.boardId === updatedCard.boardId)){
+  //         return updatedCard;
+  //       } else {
+  //         return card;
+  //       }
+  //     })
+  //     const updatedBoard = {...board, cards:updatedCards}
+  //     return updatedBoard;
+  //   })
+  //   setBoardList(updatedBoards);
+  // };
+
   // This is piece of code adapted from flasky for updating the cardData in state
   // const onUpdateCards = ()
     // setCardData((oldData) => {
@@ -173,6 +184,8 @@ function App() {
     //     return card;
     //   })
     // })
+
+
 
   const onRemove = (updatedCard) => {
     const cards = cardData.map((card) => {
@@ -194,6 +207,36 @@ function App() {
   };
 
 
+  // const onRemove = (updatedCard) => {
+  //   const updatedBoards = boardsList.map(board => {
+  //     const cards = board.cards.map((card) => {
+  //       if ((card.id === updatedCard.id) && (card.boardId === updatedCard.boardId)) {
+  //         return updatedCard;
+  //       } else {
+  //         return card;
+  //       }
+  //     });
+  //     const updatedBoard = {...board, cards:cards}
+  //     return updatedBoard;
+  //   })
+  // setBoardList(updatedBoards);
+  // };
+
+  
+  const HandleSelectedBoard = (id) => {
+    const updatedBoards = boardsList.map((board) => {
+      const updatedBoard = { ...board };
+      if (board.id === id) {
+        updatedBoard.selected = true;
+        selectedBoard = board;
+      } else {
+        updatedBoard.selected = false;
+      }
+      return updatedBoard;
+    });
+    setBoardList(updatedBoards);
+    fetchCards(id);
+  };
     
   const handleUpdatedCard = (newCard) => {
     // console.log(newCard);
@@ -235,9 +278,11 @@ function App() {
       <main>
         <BoardsList boards={boardsList} onSelect={HandleSelectedBoard} />
         <div>
-          <h3>{selectedBoard?`${selectedBoard.title}`:''}</h3>
+          <h3>{!selectedBoard ? "" : `${selectedBoard.title}`}</h3>
+          {/* <h3>{!selectedBoard?'':`${selectedBoard.title} created by ${selectedBoard.owner}`}</h3> */}
           {selectedBoard? 
           <CardsForSelectedBoard
+            // cardData={selectedBoard ? selectedBoard.cards : []}
             cardData={cardData}
             onUpdateLike={onUpdateLike}
             onRemove={onRemove}

@@ -12,6 +12,7 @@ const BoardsList = ({boards, onSelect}) => {
                         title={board.title}
                         owner={board.owner}
                         status={board.status}
+                        cards={board.cards}
                         selected={board.selected}
                         onSelect={onSelect}
                     />
