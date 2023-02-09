@@ -6,6 +6,13 @@ import HomeScreen from "./screens/HomeScreen";
 const App = () => {
   return (
     <div className="App">
+      <header>
+        <nav>
+          <a href="/">Home</a>
+          <br />
+          <a href="/about">About</a>
+        </nav>
+      </header>
       <main>
         <Router>
           <Routes>
