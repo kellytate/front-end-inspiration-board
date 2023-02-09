@@ -7,6 +7,7 @@ import Navbar from "react-bootstrap/Navbar";
 import "bootstrap/dist/css/bootstrap.min.css";
 
 const App = () => {
+
   return (
     <div className="App">
       <header>
@@ -31,6 +32,7 @@ const App = () => {
             <Route path="/about" element={<AboutScreen />} />
           </Routes>
         </Router>
+        
       </main>
     </div>
   );
