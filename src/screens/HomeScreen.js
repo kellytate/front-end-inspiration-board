@@ -7,7 +7,7 @@ import BoardsList from "../components/BoardsList";
 import CardsForSelectedBoard from "../components/CardsForSelectedBoard";
 import CreateNewCard from "../components/CreateNewCard";
 
-const kBaseUrl = "http://127.0.0.1:5000";
+const kBaseUrl = "REACT_APP_BACKEND_URL";
 
 const transformCardResponse = (card) => {
   const {
