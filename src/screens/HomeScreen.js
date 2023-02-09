@@ -7,7 +7,7 @@ import BoardsList from "../components/BoardsList";
 import CardsForSelectedBoard from "../components/CardsForSelectedBoard";
 import CreateNewCard from "../components/CreateNewCard";
 
-const kBaseUrl = "REACT_APP_BACKEND_URL";
+const kBaseUrl = process.env.REACT_APP_BACKEND_URL;
 
 const transformCardResponse = (card) => {
   const {
