@@ -1,7 +1,8 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 import "./App.css";
-import DUMMY_DATA from "../src/data/boards.json";
+import INIT_BOARDS from "../src/data/boards.json";
+import DUMMY_CARDS from "../src/data/cards.json"
 import NewBoardForm from "./components/NewBoardForm";
 import BoardsList from "./components/BoardsList";
 import CardsForSelectedBoard from "./components/CardsForSelectedBoard";
@@ -20,10 +21,7 @@ const transformCardResponse = (card) => {
   return { id, message, likesCount, boardId, status };
 };
 
-const INIT_DATA = DUMMY_DATA.map((board) => {
-  const reformedCards = board.cards.map((card) => transformCardResponse(card));
-  return { ...board, cards: reformedCards };
-});
+const INIT_CARDS = DUMMY_CARDS.map(card=> transformCardResponse(card))
 
 const getAllBoards = () => {
   return axios
@@ -33,7 +31,7 @@ const getAllBoards = () => {
     })
     .catch((error) => {
       console.log(error);
-      return INIT_DATA; //this will be deleted after connecting with Back-end
+      return INIT_BOARDS; //this will be deleted after connecting with Back-end
     });
 };
 
@@ -46,12 +44,13 @@ const getCardsForSelectedBoard = (id) => {
     })
     .catch((error) => {
       console.log(error);
+      return INIT_CARDS.filter(card => card.boardId === id)
     });
 };
 
 function App() {
   const [cardData, setCardData] = useState([]);
-  const [boardsList, setBoardList] = useState(INIT_DATA);
+  const [boardsList, setBoardList] = useState(INIT_BOARDS);
 
   // const updateCardData = (id) => {
   //   likeCardWithId(id).then((updatedCard) => {
