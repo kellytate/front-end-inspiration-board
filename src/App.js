@@ -2,16 +2,27 @@ import "./App.css";
 import AboutScreen from "./screens/AboutScreen";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import HomeScreen from "./screens/HomeScreen";
+import Container from "react-bootstrap/Container";
+import Navbar from "react-bootstrap/Navbar";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 const App = () => {
   return (
     <div className="App">
       <header>
-        <nav>
-          <a href="/">Home</a>
-          <br />
-          <a href="/about">About</a>
-        </nav>
+        <Navbar bg="dark" variant="dark">
+          <Container>
+            <Navbar.Brand href="/">Home</Navbar.Brand>
+            {/* <a href="/">Home</a> */}
+            {/* <br /> */}
+            <Navbar.Collapse className="justify-content-end">
+              <Navbar.Text>
+                <a href="/about">About</a>
+              </Navbar.Text>
+            </Navbar.Collapse>
+            {/* <a href="/about">About</a> */}
+          </Container>
+        </Navbar>
       </header>
       <main>
         <Router>
