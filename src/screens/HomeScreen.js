@@ -3,10 +3,12 @@ import "../App.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import DUMMY_DATA from "../data/boards.json";
+import DUMMY_CARDS from "../data/card.json";
 import NewBoardForm from "../components/NewBoardForm";
 import BoardsList from "../components/BoardsList";
 import CardsForSelectedBoard from "../components/CardsForSelectedBoard";
 import CreateNewCard from "../components/CreateNewCard";
+import SortOption from "../components/SortOption";
 
 //const kBaseUrl = process.env.REACT_APP_BACKEND_URL;
 const kBaseUrl = "http://127.0.0.1:5000/";
@@ -26,6 +28,7 @@ const INIT_DATA = DUMMY_DATA.map((board) => {
   const reformedCards = board.cards.map((card) => transformCardResponse(card));
   return { ...board, cards: reformedCards };
 });
+const INIT_CARDS = DUMMY_CARDS.map(card=> transformCardResponse(card))
 
 const getAllBoards = () => {
   return axios
@@ -48,26 +51,14 @@ const getCardsForSelectedBoard = (id) => {
     })
     .catch((error) => {
       console.log(error);
+      return INIT_CARDS.filter(card => card.boardId === id)
     });
 };
 
 const HomeScreen = () => {
   const [cardData, setCardData] = useState([]);
   const [boardsList, setBoardList] = useState(INIT_DATA);
-
-  // const updateCardData = (id) => {
-  //   likeCardWithId(id).then((updatedCard) => {
-  //     setCardState((oldData) => {
-  //       return oldData.map((card) => {
-  //         if (card.id === id) {
-  //           return updatedCard;
-  //         }
-  //         return card;
-  //       });
-  //     });
-  //   });
-  // };
-
+  
   const fetchBoards = () => {
     getAllBoards().then((boards) => {
       setBoardList(boards);
@@ -84,20 +75,8 @@ const HomeScreen = () => {
     });
   };
 
-  // const onUpdateLike = (updatedCard) => {
-  //   const cards = cardData.map((card) => {
-  //     if (card.id === updatedCard.id) {
-  //       return updatedCard;
-  //     } else {
-  //       return card;
-  //     }
-  //   });
-  //   setCardData(cards);
-
   const handleUpdatedBoard = (newBoard) => {
-    // const requestBody = {
-    //   ...newBoard
-    // };
+  
     if (!newBoard.title || !newBoard.owner) {
       alert("Please enter a title and owner!");
       return;
@@ -116,19 +95,18 @@ const HomeScreen = () => {
         console.log(error);
       });
 
-    const newBoardsList = [...boardsList];
-    newBoardsList.push({ ...newBoard, id: boardsList.length + 1 });
-    setBoardList(newBoardsList);
+      setBoardList((boardsList)=>{
+        const newBoardsList = [...boardsList]
+        newBoardsList.push({...newBoard, id:boardsList.length + 1})
+        return newBoardsList
+      });
   };
 
-  let selectedBoard;
-  for (const board of boardsList) {
-    if (board.selected) {
-      selectedBoard = board;
-    }
-  }
+  const selectBoard = boardsList.filter( board => {
+    return board.selected === true;
+  })
+  let selectedBoard = selectBoard[0]
 
-  // This is the code for managing likes in state and through the API call
   const onUpdateLike = (updatedCard) => {
     const cards = cardData.map((card) => {
       if (card.id === updatedCard.id) {
@@ -149,33 +127,6 @@ const HomeScreen = () => {
         console.log(error);
       });
   };
-
-  // This is Elaine's code managing like via the boardsList
-  // const onUpdateLike = (updatedCard) => {
-  //   const updatedBoards = boardsList.map(board => {
-  //     const updatedCards = board.cards.map((card) => {
-  //       if ((card.id === updatedCard.id) && (card.boardId === updatedCard.boardId)){
-  //         return updatedCard;
-  //       } else {
-  //         return card;
-  //       }
-  //     })
-  //     const updatedBoard = {...board, cards:updatedCards}
-  //     return updatedBoard;
-  //   })
-  //   setBoardList(updatedBoards);
-  // };
-
-  // This is piece of code adapted from flasky for updating the cardData in state
-  // const onUpdateCards = ()
-  // setCardData((oldData) => {
-  //   return oldData.map((card) => {
-  //     if (card.id === id) {
-  //       return updatedCard;
-  //     }
-  //     return card;
-  //   })
-  // })
 
   const onRemove = (updatedCard) => {
     const cards = cardData.map((card) => {
@@ -198,21 +149,6 @@ const HomeScreen = () => {
       });
   };
 
-  // const onRemove = (updatedCard) => {
-  //   const updatedBoards = boardsList.map(board => {
-  //     const cards = board.cards.map((card) => {
-  //       if ((card.id === updatedCard.id) && (card.boardId === updatedCard.boardId)) {
-  //         return updatedCard;
-  //       } else {
-  //         return card;
-  //       }
-  //     });
-  //     const updatedBoard = {...board, cards:cards}
-  //     return updatedBoard;
-  //   })
-  // setBoardList(updatedBoards);
-  // };
-
   const HandleSelectedBoard = (id) => {
     const updatedBoards = boardsList.map((board) => {
       const updatedBoard = { ...board };
@@ -229,7 +165,7 @@ const HomeScreen = () => {
   };
 
   const handleUpdatedCard = (newCard) => {
-    // console.log(newCard);
+
     if (!newCard.message) {
       alert("Please enter a message!");
       return;
@@ -243,7 +179,6 @@ const HomeScreen = () => {
     const requestBody = {
       ...newCard,
       board_id: selectedBoard.id,
-      // status: true,
     };
 
     console.log(requestBody);
@@ -263,6 +198,18 @@ const HomeScreen = () => {
       });
   };
 
+  const HandleSortCards = (value) => {
+    if (value === 'id') {
+      setCardData((cards)=>[...cards].sort((a, b) => (a.id - b.id)))
+    } else if (value === 'message'){
+      setCardData((cards) => [...cards].sort((a, b) => (a.message.localeCompare(b.message))))
+    } else if (value==='likes'){
+      setCardData((cards) => [...cards].sort((a, b) => (b.likesCount - a.likesCount)))
+    } else {
+      return cardData;
+    }
+  }
+
   return (
     <div>
       <BoardsList boards={boardsList} onSelect={HandleSelectedBoard} />
@@ -270,10 +217,11 @@ const HomeScreen = () => {
         <h2 className="board-title">
           {!selectedBoard ? "" : `${selectedBoard.title}`}
         </h2>
-        {/* <h3>{!selectedBoard?'':`${selectedBoard.title} created by ${selectedBoard.owner}`}</h3> */}
+        {selectedBoard?
+          <SortOption cardData={cardData} onChange={HandleSortCards}
+          />:[]}
         {selectedBoard ? (
           <CardsForSelectedBoard
-            // cardData={selectedBoard ? selectedBoard.cards : []}
             cardData={cardData}
             onUpdateLike={onUpdateLike}
             onRemove={onRemove}

@@ -23,7 +23,7 @@
     {
         "id":4,
         "message":"ocelot",
-        "likes_count":0,
+        "likes_count":5,
         "status": true,
         "board_id": 2
     },
