@@ -8,8 +8,7 @@ import CardsForSelectedBoard from "../components/CardsForSelectedBoard";
 import CreateNewCard from "../components/CreateNewCard";
 import SortOption from "../components/SortOption";
 
-// const kBaseUrl = process.env.REACT_APP_BACKEND_URL;
-const kBaseUrl = 'http://127.0.0.1:5000'
+const kBaseUrl = process.env.REACT_APP_BACKEND_URL;
 
 const transformCardResponse = (card) => {
   const {
