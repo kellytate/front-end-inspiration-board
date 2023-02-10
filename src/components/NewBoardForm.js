@@ -64,7 +64,6 @@ const NewBoardForm = ({ onBoardUpdate }) => {
       <Button variant="primary" type="submit">
         Submit
       </Button>
-      {/* <button type="submit">Submit</button> */}
     </Form>
   );
 };

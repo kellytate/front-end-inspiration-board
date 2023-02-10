@@ -10,7 +10,6 @@ import CreateNewCard from "../components/CreateNewCard";
 import SortOption from "../components/SortOption";
 
 const kBaseUrl = process.env.REACT_APP_BACKEND_URL;
-// const kBaseUrl = 'http://127.0.0.1:5000'
 
 const transformCardResponse = (card) => {
   const {
@@ -57,20 +56,7 @@ const getCardsForSelectedBoard = (id) => {
 const HomeScreen = () => {
   const [cardData, setCardData] = useState([]);
   const [boardsList, setBoardList] = useState(INIT_DATA);
-
-  // const updateCardData = (id) => {
-  //   likeCardWithId(id).then((updatedCard) => {
-  //     setCardState((oldData) => {
-  //       return oldData.map((card) => {
-  //         if (card.id === id) {
-  //           return updatedCard;
-  //         }
-  //         return card;
-  //       });
-  //     });
-  //   });
-  // };
-
+  
   const fetchBoards = () => {
     getAllBoards().then((boards) => {
       setBoardList(boards);
@@ -87,20 +73,8 @@ const HomeScreen = () => {
     });
   };
 
-  // const onUpdateLike = (updatedCard) => {
-  //   const cards = cardData.map((card) => {
-  //     if (card.id === updatedCard.id) {
-  //       return updatedCard;
-  //     } else {
-  //       return card;
-  //     }
-  //   });
-  //   setCardData(cards);
-
   const handleUpdatedBoard = (newBoard) => {
-    // const requestBody = {
-    //   ...newBoard
-    // };
+  
     if (!newBoard.title || !newBoard.owner) {
       alert("Please enter a title and owner!");
       return;
@@ -131,7 +105,6 @@ const HomeScreen = () => {
   })
   let selectedBoard = selectBoard[0]
 
-  // This is the code for managing likes in state and through the API call
   const onUpdateLike = (updatedCard) => {
     const cards = cardData.map((card) => {
       if (card.id === updatedCard.id) {
@@ -152,18 +125,6 @@ const HomeScreen = () => {
         console.log(error);
       });
   };
-
-
-  // This is piece of code adapted from flasky for updating the cardData in state
-  // const onUpdateCards = ()
-  // setCardData((oldData) => {
-  //   return oldData.map((card) => {
-  //     if (card.id === id) {
-  //       return updatedCard;
-  //     }
-  //     return card;
-  //   })
-  // })
 
   const onRemove = (updatedCard) => {
     const cards = cardData.map((card) => {
@@ -186,21 +147,6 @@ const HomeScreen = () => {
       });
   };
 
-  // const onRemove = (updatedCard) => {
-  //   const updatedBoards = boardsList.map(board => {
-  //     const cards = board.cards.map((card) => {
-  //       if ((card.id === updatedCard.id) && (card.boardId === updatedCard.boardId)) {
-  //         return updatedCard;
-  //       } else {
-  //         return card;
-  //       }
-  //     });
-  //     const updatedBoard = {...board, cards:cards}
-  //     return updatedBoard;
-  //   })
-  // setBoardList(updatedBoards);
-  // };
-
   const HandleSelectedBoard = (id) => {
     const updatedBoards = boardsList.map((board) => {
       const updatedBoard = { ...board };
@@ -217,7 +163,7 @@ const HomeScreen = () => {
   };
 
   const handleUpdatedCard = (newCard) => {
-    // console.log(newCard);
+
     if (!newCard.message) {
       alert("Please enter a message!");
       return;
@@ -231,7 +177,6 @@ const HomeScreen = () => {
     const requestBody = {
       ...newCard,
       board_id: selectedBoard.id,
-      // status: true,
     };
 
     console.log(requestBody);
@@ -268,13 +213,11 @@ const HomeScreen = () => {
       <BoardsList boards={boardsList} onSelect={HandleSelectedBoard} />
       <div>
         <h3>{!selectedBoard ? "" : `${selectedBoard.title}`}</h3>
-        {/* <h3>{!selectedBoard?'':`${selectedBoard.title} created by ${selectedBoard.owner}`}</h3> */}
         {selectedBoard?
           <SortOption cardData={cardData} onChange={HandleSortCards}
           />:[]}
         {selectedBoard ? (
           <CardsForSelectedBoard
-            // cardData={selectedBoard ? selectedBoard.cards : []}
             cardData={cardData}
             onUpdateLike={onUpdateLike}
             onRemove={onRemove}

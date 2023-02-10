@@ -14,14 +14,11 @@ const App = () => {
         <Navbar bg="dark" variant="dark">
           <Container>
             <Navbar.Brand href="/">Home</Navbar.Brand>
-            {/* <a href="/">Home</a> */}
-            {/* <br /> */}
             <Navbar.Collapse className="justify-content-end">
               <Navbar.Text>
                 <a href="/about">About</a>
               </Navbar.Text>
             </Navbar.Collapse>
-            {/* <a href="/about">About</a> */}
           </Container>
         </Navbar>
       </header>
