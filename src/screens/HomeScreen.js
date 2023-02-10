@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import DUMMY_DATA from "../data/boards.json";
+import DUMMY_CARDS from "../data/card.json";
 import NewBoardForm from "../components/NewBoardForm";
 import BoardsList from "../components/BoardsList";
 import CardsForSelectedBoard from "../components/CardsForSelectedBoard";
@@ -9,6 +10,7 @@ import CreateNewCard from "../components/CreateNewCard";
 import SortOption from "../components/SortOption";
 
 const kBaseUrl = process.env.REACT_APP_BACKEND_URL;
+// const kBaseUrl = 'http://127.0.0.1:5000'
 
 const transformCardResponse = (card) => {
   const {
@@ -25,6 +27,7 @@ const INIT_DATA = DUMMY_DATA.map((board) => {
   const reformedCards = board.cards.map((card) => transformCardResponse(card));
   return { ...board, cards: reformedCards };
 });
+const INIT_CARDS = DUMMY_CARDS.map(card=> transformCardResponse(card))
 
 const getAllBoards = () => {
   return axios
@@ -47,6 +50,7 @@ const getCardsForSelectedBoard = (id) => {
     })
     .catch((error) => {
       console.log(error);
+      return INIT_CARDS.filter(card => card.boardId === id)
     });
 };
 
@@ -115,17 +119,17 @@ const HomeScreen = () => {
         console.log(error);
       });
 
-    const newBoardsList = [...boardsList];
-    newBoardsList.push({ ...newBoard, id: boardsList.length + 1 });
-    setBoardList(newBoardsList);
+      setBoardList((boardsList)=>{
+        const newBoardsList = [...boardsList]
+        newBoardsList.push({...newBoard, id:boardsList.length + 1})
+        return newBoardsList
+      });
   };
 
-  let selectedBoard;
-  for (const board of boardsList) {
-    if (board.selected) {
-      selectedBoard = board;
-    }
-  }
+  const selectBoard = boardsList.filter( board => {
+    return board.selected === true;
+  })
+  let selectedBoard = selectBoard[0]
 
   // This is the code for managing likes in state and through the API call
   const onUpdateLike = (updatedCard) => {
@@ -149,21 +153,6 @@ const HomeScreen = () => {
       });
   };
 
-  // This is Elaine's code managing like via the boardsList
-  // const onUpdateLike = (updatedCard) => {
-  //   const updatedBoards = boardsList.map(board => {
-  //     const updatedCards = board.cards.map((card) => {
-  //       if ((card.id === updatedCard.id) && (card.boardId === updatedCard.boardId)){
-  //         return updatedCard;
-  //       } else {
-  //         return card;
-  //       }
-  //     })
-  //     const updatedBoard = {...board, cards:updatedCards}
-  //     return updatedBoard;
-  //   })
-  //   setBoardList(updatedBoards);
-  // };
 
   // This is piece of code adapted from flasky for updating the cardData in state
   // const onUpdateCards = ()
