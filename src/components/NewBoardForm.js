@@ -58,14 +58,15 @@ const NewBoardForm = ({ onBoardUpdate }) => {
           />
         </Form.Group>
 
-      <p id="preview-label">
-        preview:
-        <span>{`${title} by ${owner}`}</span>
-      </p>
-      <Button variant="primary" type="submit">
-        Submit
-      </Button>
-    </Form>
+        <p id="preview-label">
+          preview:
+          <span>{`${title} by ${owner}`}</span>
+        </p>
+        <Button variant="primary" type="submit">
+          Submit
+        </Button>
+      </Form>
+    </div>
   );
 };
 export default NewBoardForm;

@@ -10,8 +10,7 @@ import CardsForSelectedBoard from "../components/CardsForSelectedBoard";
 import CreateNewCard from "../components/CreateNewCard";
 import SortOption from "../components/SortOption";
 
-//const kBaseUrl = process.env.REACT_APP_BACKEND_URL;
-const kBaseUrl = "http://127.0.0.1:5000/";
+const kBaseUrl = process.env.REACT_APP_BACKEND_URL;
 
 const transformCardResponse = (card) => {
   const {
@@ -28,7 +27,7 @@ const INIT_DATA = DUMMY_DATA.map((board) => {
   const reformedCards = board.cards.map((card) => transformCardResponse(card));
   return { ...board, cards: reformedCards };
 });
-const INIT_CARDS = DUMMY_CARDS.map(card=> transformCardResponse(card))
+const INIT_CARDS = DUMMY_CARDS.map((card) => transformCardResponse(card));
 
 const getAllBoards = () => {
   return axios
@@ -51,14 +50,14 @@ const getCardsForSelectedBoard = (id) => {
     })
     .catch((error) => {
       console.log(error);
-      return INIT_CARDS.filter(card => card.boardId === id)
+      return INIT_CARDS.filter((card) => card.boardId === id);
     });
 };
 
 const HomeScreen = () => {
   const [cardData, setCardData] = useState([]);
   const [boardsList, setBoardList] = useState(INIT_DATA);
-  
+
   const fetchBoards = () => {
     getAllBoards().then((boards) => {
       setBoardList(boards);
@@ -76,7 +75,6 @@ const HomeScreen = () => {
   };
 
   const handleUpdatedBoard = (newBoard) => {
-  
     if (!newBoard.title || !newBoard.owner) {
       alert("Please enter a title and owner!");
       return;
@@ -95,17 +93,17 @@ const HomeScreen = () => {
         console.log(error);
       });
 
-      setBoardList((boardsList)=>{
-        const newBoardsList = [...boardsList]
-        newBoardsList.push({...newBoard, id:boardsList.length + 1})
-        return newBoardsList
-      });
+    setBoardList((boardsList) => {
+      const newBoardsList = [...boardsList];
+      newBoardsList.push({ ...newBoard, id: boardsList.length + 1 });
+      return newBoardsList;
+    });
   };
 
-  const selectBoard = boardsList.filter( board => {
+  const selectBoard = boardsList.filter((board) => {
     return board.selected === true;
-  })
-  let selectedBoard = selectBoard[0]
+  });
+  let selectedBoard = selectBoard[0];
 
   const onUpdateLike = (updatedCard) => {
     const cards = cardData.map((card) => {
@@ -165,7 +163,6 @@ const HomeScreen = () => {
   };
 
   const handleUpdatedCard = (newCard) => {
-
     if (!newCard.message) {
       alert("Please enter a message!");
       return;
@@ -199,16 +196,20 @@ const HomeScreen = () => {
   };
 
   const HandleSortCards = (value) => {
-    if (value === 'id') {
-      setCardData((cards)=>[...cards].sort((a, b) => (a.id - b.id)))
-    } else if (value === 'message'){
-      setCardData((cards) => [...cards].sort((a, b) => (a.message.localeCompare(b.message))))
-    } else if (value==='likes'){
-      setCardData((cards) => [...cards].sort((a, b) => (b.likesCount - a.likesCount)))
+    if (value === "id") {
+      setCardData((cards) => [...cards].sort((a, b) => a.id - b.id));
+    } else if (value === "message") {
+      setCardData((cards) =>
+        [...cards].sort((a, b) => a.message.localeCompare(b.message))
+      );
+    } else if (value === "likes") {
+      setCardData((cards) =>
+        [...cards].sort((a, b) => b.likesCount - a.likesCount)
+      );
     } else {
       return cardData;
     }
-  }
+  };
 
   return (
     <div>
@@ -217,9 +218,11 @@ const HomeScreen = () => {
         <h2 className="board-title">
           {!selectedBoard ? "" : `${selectedBoard.title}`}
         </h2>
-        {selectedBoard?
-          <SortOption cardData={cardData} onChange={HandleSortCards}
-          />:[]}
+        {selectedBoard ? (
+          <SortOption cardData={cardData} onChange={HandleSortCards} />
+        ) : (
+          []
+        )}
         {selectedBoard ? (
           <CardsForSelectedBoard
             cardData={cardData}
