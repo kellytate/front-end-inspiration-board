@@ -6,8 +6,10 @@ import NewBoardForm from "../components/NewBoardForm";
 import BoardsList from "../components/BoardsList";
 import CardsForSelectedBoard from "../components/CardsForSelectedBoard";
 import CreateNewCard from "../components/CreateNewCard";
+import SortOption from "../components/SortOption";
 
-const kBaseUrl = process.env.REACT_APP_BACKEND_URL;
+// const kBaseUrl = process.env.REACT_APP_BACKEND_URL;
+const kBaseUrl = 'http://127.0.0.1:5000'
 
 const transformCardResponse = (card) => {
   const {
@@ -261,12 +263,27 @@ const HomeScreen = () => {
       });
   };
 
+  const HandleSortCards = (value) => {
+    if (value === 'id') {
+      setCardData((cards)=>[...cards].sort((a, b) => (a.id - b.id)))
+    } else if (value === 'message'){
+      setCardData((cards) => [...cards].sort((a, b) => (a.message.localeCompare(b.message))))
+    } else if (value==='likes'){
+      setCardData((cards) => [...cards].sort((a, b) => (b.likesCount - a.likesCount)))
+    } else {
+      return cardData;
+    }
+  }
+
   return (
     <div>
       <BoardsList boards={boardsList} onSelect={HandleSelectedBoard} />
       <div>
         <h3>{!selectedBoard ? "" : `${selectedBoard.title}`}</h3>
         {/* <h3>{!selectedBoard?'':`${selectedBoard.title} created by ${selectedBoard.owner}`}</h3> */}
+        {selectedBoard?
+          <SortOption cardData={cardData} onChange={HandleSortCards}
+          />:[]}
         {selectedBoard ? (
           <CardsForSelectedBoard
             // cardData={selectedBoard ? selectedBoard.cards : []}
