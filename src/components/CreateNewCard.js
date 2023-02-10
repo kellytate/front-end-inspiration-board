@@ -29,26 +29,28 @@ const CreateNewCard = ({ onCardUpdate }) => {
   };
 
   return (
-    <Form className="new-card-form" onSubmit={cardFormSubmitHandler}>
-      <h2> CREATE A NEW CARD</h2>
-      <Form.Group className="mb-3">
-        <Form.Label>Message</Form.Label>
-        <Form.Control
-          name="message"
-          placeholder="Enter message here"
-          onChange={onChange}
-          value={message}
-          ref={inputMessage}
-        />
-      </Form.Group>
-      <p id="preview-label">
-        preview:
-        <span>{`${message}`}</span>
-      </p>
-      <Button variant="primary" type="submit">
-        Submit
-      </Button>
-    </Form>
+    <div className="card-form-div">
+      <Form className="new-card-form" onSubmit={cardFormSubmitHandler}>
+        <h2> CREATE A NEW CARD</h2>
+        <Form.Group className="mb-3">
+          <Form.Label>Message</Form.Label>
+          <Form.Control
+            name="message"
+            placeholder="Enter message here"
+            onChange={onChange}
+            value={message}
+            ref={inputMessage}
+          />
+        </Form.Group>
+        <p id="preview-label">
+          preview:
+          <span>{`${message}`}</span>
+        </p>
+        <Button variant="primary" type="submit">
+          Submit
+        </Button>
+      </Form>
+    </div>
   );
 };
 export default CreateNewCard;

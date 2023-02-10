@@ -1,6 +1,7 @@
 import React from "react";
 import Card from "./Card";
 import PropTypes from "prop-types";
+import "./CardsForSelectedBoard.css";
 
 const CardsForSelectedBoard = ({ cardData, onUpdateLike, onRemove }) => {
   const cardComponents = cardData.map((card) => {
@@ -18,7 +19,7 @@ const CardsForSelectedBoard = ({ cardData, onUpdateLike, onRemove }) => {
     );
   });
   return (
-    <section>
+    <section className="sec-cards">
       <ul>{cardComponents}</ul>
     </section>
   );

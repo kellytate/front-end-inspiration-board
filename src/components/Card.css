@@ -1,0 +1,39 @@
+li {
+    list-style: none;
+    text-align: center;
+    height: 300px;
+    width: 300px;
+    background: transparent;
+}
+
+.card {
+    background-image: url("../images/stickynote.png");
+    width: 300px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    position: relative;
+    border: none;
+}
+
+.content {
+    top: 0px;
+    left: 0px;
+}
+
+.card-btns {
+    display: flex;
+    align-items: center;
+    padding-top: 100px;
+    justify-content: center;
+}
+
+.btn {
+    height: 40px;
+    margin-right: 5px;
+}
+
+.message {
+    text-align: center;
+    font-size: 20px;
+    padding-top: 60px;
+}

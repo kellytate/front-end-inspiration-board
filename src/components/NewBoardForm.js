@@ -33,39 +33,41 @@ const NewBoardForm = ({ onBoardUpdate }) => {
   };
 
   return (
-    <Form className="new-board-form" onSubmit={boardFormSubmitHandler}>
-      <h2> CREATE A NEW BOARD</h2>
+    <div className="board-form-div">
+      <Form className="new-board-form" onSubmit={boardFormSubmitHandler}>
+        <h2> CREATE A NEW BOARD</h2>
 
-      <Form.Group className="mb-3">
-        <Form.Label>Title</Form.Label>
-        <Form.Control
-          name="title"
-          placeholder="Enter board title here"
-          onChange={onChange}
-          value={title}
-          ref={inputTitle}
-        />
-      </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Title</Form.Label>
+          <Form.Control
+            name="title"
+            placeholder="Enter board title here"
+            onChange={onChange}
+            value={title}
+            ref={inputTitle}
+          />
+        </Form.Group>
 
-      <Form.Group className="mb-3">
-        <Form.Label>Owner</Form.Label>
-        <Form.Control
-          name="owner"
-          placeholder="Enter board owner here"
-          onChange={onChange}
-          value={owner}
-        />
-      </Form.Group>
+        <Form.Group className="mb-3">
+          <Form.Label>Owner</Form.Label>
+          <Form.Control
+            name="owner"
+            placeholder="Enter board owner here"
+            onChange={onChange}
+            value={owner}
+          />
+        </Form.Group>
 
-      <p id="preview-label">
-        preview:
-        <span>{`${title} by ${owner}`}</span>
-      </p>
-      <Button variant="primary" type="submit">
-        Submit
-      </Button>
-      {/* <button type="submit">Submit</button> */}
-    </Form>
+        <p id="preview-label">
+          preview:
+          <span>{`${title} by ${owner}`}</span>
+        </p>
+        <Button variant="primary" type="submit">
+          Submit
+        </Button>
+        {/* <button type="submit">Submit</button> */}
+      </Form>
+    </div>
   );
 };
 export default NewBoardForm;
