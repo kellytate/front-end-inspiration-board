@@ -1,5 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
+import "./Card.css";
+import { Card as CardComp, Button } from "react-bootstrap";
+import { BsFillTrashFill } from "react-icons/bs";
 
 const Card = (props) => {
   const onClickUpdateCard = () => {
@@ -17,21 +20,33 @@ const Card = (props) => {
     props.onRemove(updateCard);
   };
   return (
-    <div>
-      {/* display only if card status is true */}
+    <>
       {props.status ? (
-        <li key={props.id}>
-          <div>
-            <p>{props.message}</p>
-            <span>
-              <button onClick={onClickUpdateCard}>❤️</button>
-              <p>{props.likesCount}</p>
-            </span>
-            <button onClick={onClickRemoveCard}>delete</button>
-          </div>
-        </li>
+        <CardComp>
+          <li key={props.id}>
+            <div className="content">
+              <p className="message">{props.message}</p>
+              <div className="card-btns">
+                <Button
+                  className="btn"
+                  variant="light"
+                  onClick={onClickUpdateCard}
+                >
+                  <p>❤️ {props.likesCount}</p>
+                </Button>
+                <Button
+                  className="btn"
+                  variant="light"
+                  onClick={onClickRemoveCard}
+                >
+                  <BsFillTrashFill />
+                </Button>
+              </div>
+            </div>
+          </li>
+        </CardComp>
       ) : null}
-    </div>
+    </>
   );
 };
 

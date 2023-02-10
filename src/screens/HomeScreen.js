@@ -1,4 +1,5 @@
 import React from "react";
+import "../App.css";
 import { useState, useEffect } from "react";
 import axios from "axios";
 import DUMMY_DATA from "../data/boards.json";
@@ -9,7 +10,8 @@ import CardsForSelectedBoard from "../components/CardsForSelectedBoard";
 import CreateNewCard from "../components/CreateNewCard";
 import SortOption from "../components/SortOption";
 
-const kBaseUrl = process.env.REACT_APP_BACKEND_URL;
+//const kBaseUrl = process.env.REACT_APP_BACKEND_URL;
+const kBaseUrl = "http://127.0.0.1:5000/";
 
 const transformCardResponse = (card) => {
   const {
@@ -212,7 +214,9 @@ const HomeScreen = () => {
     <div>
       <BoardsList boards={boardsList} onSelect={HandleSelectedBoard} />
       <div>
-        <h3>{!selectedBoard ? "" : `${selectedBoard.title}`}</h3>
+        <h2 className="board-title">
+          {!selectedBoard ? "" : `${selectedBoard.title}`}
+        </h2>
         {selectedBoard?
           <SortOption cardData={cardData} onChange={HandleSortCards}
           />:[]}
