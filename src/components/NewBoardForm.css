@@ -1,6 +1,8 @@
 .board-form-div {
-    width: 50%;
+    width: 25%;
     margin: 0 auto;
+    border: 1px #494949 solid;
+    border-radius: 50px;
 }
 input {
     margin-bottom: 0.5em;
