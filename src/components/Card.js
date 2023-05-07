@@ -26,7 +26,9 @@ const Card = (props) => {
           <li key={props.id}>
             <div className="content">
               <p className="message">{props.message}</p>
-              <div className="card-btns">
+              
+            </div>
+            <div className="card-btns">
                 <Button
                   className="btn"
                   variant="light"
@@ -42,7 +44,6 @@ const Card = (props) => {
                   <BsFillTrashFill />
                 </Button>
               </div>
-            </div>
           </li>
         </CardComp>
       ) : null}

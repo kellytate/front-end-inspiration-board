@@ -1,9 +1,14 @@
 li {
     list-style: none;
-    text-align: center;
+    /* text-align: center; */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-end;
     height: 300px;
     width: 300px;
     background: transparent;
+    padding: 20px 0px 60px 0px;
 }
 
 .card {
@@ -16,15 +21,16 @@ li {
 }
 
 .content {
-    top: 0px;
-    left: 0px;
+    margin-left: 40px;
+    margin-right: 70px;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 .card-btns {
     display: flex;
-    align-items: center;
-    padding-top: 100px;
     justify-content: center;
+    margin-right: 20px;
 }
 
 .btn {

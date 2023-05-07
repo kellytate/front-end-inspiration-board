@@ -23,3 +23,13 @@ span {
 #preview-label {
     display: inline;
 }
+
+.btn-primary {
+    background: #282c34 !important;
+    border-color: #282c34 !important;
+}
+
+.btn-primary:hover {
+    background: #343944 !important;
+    border-color: #343944 !important;
+}

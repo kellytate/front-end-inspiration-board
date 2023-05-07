@@ -4,11 +4,13 @@ const SortOption = ({cardData,onChange}) => {
       onChange(event.target.value);
     }; 
   return (
-          <select onChange={dropdownChangeHandler}> 
-          <option value='id'>Sort by Id</option>
-          <option value='message'>Sort by Message</option>
-          <option value='likes'>Sort by Likes count</option>
-          </select>
+          
+            <select onChange={dropdownChangeHandler}> 
+            <option value='id'>Sort by Id</option>
+            <option value='message'>Sort by Message</option>
+            <option value='likes'>Sort by Likes count</option>
+            </select>
+          
   );
 }
 

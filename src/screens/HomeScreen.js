@@ -214,7 +214,7 @@ const HomeScreen = () => {
   return (
     <div>
       <BoardsList boards={boardsList} onSelect={HandleSelectedBoard} />
-      <div>
+      <div className="board-content">
         <h2 className="board-title">
           {!selectedBoard ? "" : `${selectedBoard.title}`}
         </h2>

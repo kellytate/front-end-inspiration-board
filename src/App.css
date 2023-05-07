@@ -7,9 +7,9 @@ h2 {
 }
 
 a {
-  text-decoration: none;
-  
+  text-decoration: none !important;
 }
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;
@@ -43,4 +43,12 @@ a {
   to {
     transform: rotate(360deg);
   }
+}
+
+.board-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2em;
 }
