@@ -212,29 +212,33 @@ const HomeScreen = () => {
   };
 
   return (
-    <div>
-      <BoardsList boards={boardsList} onSelect={HandleSelectedBoard} />
-      <div className="board-content">
-        <h2 className="board-title">
-          {!selectedBoard ? "" : `${selectedBoard.title}`}
-        </h2>
-        {selectedBoard ? (
-          <SortOption cardData={cardData} onChange={HandleSortCards} />
-        ) : (
-          []
-        )}
-        {selectedBoard ? (
-          <CardsForSelectedBoard
-            cardData={cardData}
-            onUpdateLike={onUpdateLike}
-            onRemove={onRemove}
-          />
-        ) : (
-          []
-        )}
+    <div className="homeContent">
+      <div className="boardsDisplay">
+        <BoardsList boards={boardsList} onSelect={HandleSelectedBoard} />
+        <div className="board-content">
+          <h2 className="board-title">
+            {!selectedBoard ? "" : `${selectedBoard.title}`}
+          </h2>
+          {selectedBoard ? (
+            <SortOption cardData={cardData} onChange={HandleSortCards} />
+          ) : (
+            []
+          )}
+          {selectedBoard ? (
+            <CardsForSelectedBoard
+              cardData={cardData}
+              onUpdateLike={onUpdateLike}
+              onRemove={onRemove}
+            />
+          ) : (
+            []
+          )}
+        </div>
       </div>
-      <NewBoardForm onBoardUpdate={handleUpdatedBoard} />
-      <CreateNewCard onCardUpdate={handleUpdatedCard} />
+      <div className="forms">
+          <NewBoardForm onBoardUpdate={handleUpdatedBoard} />
+          <CreateNewCard onCardUpdate={handleUpdatedCard} />
+      </div>
     </div>
   );
 };

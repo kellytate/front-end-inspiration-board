@@ -6,6 +6,8 @@ h2 {
     text-align: center;
     padding-top: 50px;
     padding-bottom: 25px;
+    font-size: 2vw;
+    color: #ffffff;
 }
 
 select {
