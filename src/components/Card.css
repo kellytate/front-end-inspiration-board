@@ -13,7 +13,7 @@ li {
 
 .card {
     background-image: url("../images/yellow-note.png");
-    background-color: #1e1e1e;
+    background-color: #ded9c8;
     width: 300px;
     background-size: contain;
     background-repeat: no-repeat;
@@ -59,7 +59,7 @@ li {
 
 .btn:hover {
     background: none;
-    color: #1e1e1e;
+    color: #ded9c8;
 }
 
 .message {

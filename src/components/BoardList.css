@@ -1,9 +1,14 @@
 .div-boardlist {
     display: flex;
+    flex-direction: column;
     justify-content: center;
-    background-color: #ffffff;
     color: #ffffff;
 }
+
+.div-boardlist .btn {
+    color: #ffffff;
+}
+
 h2 {
     text-align: center;
     padding-top: 50px;
@@ -15,4 +20,8 @@ h2 {
 select {
     text-align: center;
     align-self: center;
+    border: 1px;
+    border-radius: 8px;
+    background: transparent;
+    font-size: 1.5em;
 }

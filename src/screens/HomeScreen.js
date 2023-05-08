@@ -213,8 +213,10 @@ const HomeScreen = () => {
 
   return (
     <div className="homeContent">
-      <div className="boardsDisplay">
+      <div className="boardslist">
         <BoardsList boards={boardsList} onSelect={HandleSelectedBoard} />
+      </div>
+      <div className="boardsDisplay">
         <div className="board-content">
           <h2 className="board-title">
             {!selectedBoard ? "" : `${selectedBoard.title}`}
@@ -224,6 +226,7 @@ const HomeScreen = () => {
           ) : (
             []
           )}
+
           {selectedBoard ? (
             <CardsForSelectedBoard
               cardData={cardData}

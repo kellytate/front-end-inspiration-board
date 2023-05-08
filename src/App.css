@@ -2,10 +2,10 @@
   text-align: center;
 } */
 
-h2 {
+h2, .board-title {
   text-align: center;
-  padding: 50px 0;
-  
+  /* padding: 50px 0; */
+  color: #1e1e1e;
 }
 
 a {
@@ -63,9 +63,9 @@ label, p {
 .homeContent {
   margin-top: 2em;
   display: grid;
-  grid-template-columns: 2fr 1fr;
-  margin-left: 15%;
-  margin-right: 15%;
+  grid-template-columns: 1fr 2fr 1fr;
+  margin-left: 5%;
+  margin-right: 5%;
 }
 
 .forms {
@@ -78,7 +78,14 @@ label, p {
   width: 100%;
   border: 1px #494949 solid;
   border-radius: 50px;
-  background-color: #1e1e1e;
+  background-color: #ded9c8;
+  /* color: #1e1e1e; */
+}
+
+.boardslist {
+  border: 1px #494949 solid;
+  border-radius: 50px;
+  width: 85%;
 }
 
 .navbar-brand {
