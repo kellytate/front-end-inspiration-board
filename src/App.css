@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Raleway:wght@600;900&family=Rock+Salt&display=swap');
+
+
 /* .App {
   text-align: center;
 } */
@@ -9,9 +12,9 @@ h2, .board-title {
   color: #1e1e1e;
 }
 
-main {
+/* main {
   background-color: #242320;
-}
+} */
 
 a {
   text-decoration: none !important;
@@ -34,7 +37,8 @@ label, p {
 }
 
 .App-header {
-  background-color: #282c34;
+  /* background-color: #282c34; */
+  /* background-color: #1e1e1e; */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
@@ -115,6 +119,7 @@ label, p {
   z-index: 1;
   margin-left: -75px;
   margin-right: -75px;
+  margin-top: -40px;
 }
 
 .boardslist {
@@ -155,10 +160,11 @@ label, p {
   background: #1e1e1e;
 }
 
-.navbar-brand {
-  font-size: 4em !important;
+.navbar-brand, .navbar-brand b {
+  font-size: 2.5em !important;
   /* background-color: #ffffff !important; */
   color: #ffffff !important;
+  font-family: 'Raleway', sans-serif;
 
 }
 
@@ -172,10 +178,38 @@ label, p {
 }
 
 .boardslist, .card-form-div, .board-form-div {
-  background-color: #3e3b36;
-  border-radius: 5px !important;
+  background-color: #ffffff;
+  border-radius: 2px !important;
+  color: #1e1e1e;
 }
 
-.boardsDisplay {
-  border-radius: 5px !important;
+.homeContent, main {
+  background-color: #ffffff;
+}
+
+.boardsDisplay, .card, ul, li {
+  border-radius: 2px !important;
+  background-color: #ffffff;
+}
+
+.card-form-div {
+  border-left: 20px solid #1e1e1e !important;
+  /* border-bottom: 20px solid #1e1e1e !important; */
+}
+
+.boardslist {
+  border-right: 10px solid #1e1e1e !important;
+}
+
+.board-form-div {
+  border-right: 20px solid #1e1e1e !important;
+}
+
+h2 {
+  color: #1e1e1e !important;
+  font-weight: bold !important;
+}
+
+button {
+  color: #1e1e1e !important;
 }
