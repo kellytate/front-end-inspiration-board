@@ -3,9 +3,14 @@
 } */
 
 h2, .board-title {
+  margin-top: 0px;
   text-align: center;
   /* padding: 50px 0; */
   color: #1e1e1e;
+}
+
+main {
+  background-color: #242320;
 }
 
 a {
@@ -58,6 +63,7 @@ label, p {
   align-items: center;
   justify-content: center;
   gap: 2em;
+  padding: 2em;
 }
 
 .homeContent {
@@ -77,15 +83,16 @@ label, p {
 .boardsDisplay {
   width: 100%;
   border: 1px #494949 solid;
-  border-radius: 50px;
+  border-radius: 0px;
   background-color: #ded9c8;
   /* color: #1e1e1e; */
 }
 
 .boardslist {
   border: 1px #494949 solid;
-  border-radius: 50px;
+  border-radius: 0px;
   width: 85%;
+  padding: 2em;
 }
 
 .navbar-brand {
@@ -96,6 +103,7 @@ label, p {
 
 .navbar {
   border: 0px;
+  padding-bottom: 20px;
 }
 
 .navbar a {

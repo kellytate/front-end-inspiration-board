@@ -2,8 +2,8 @@
     width: 75%;
     margin: 0 auto;
     border: 1px #494949 solid;
-    border-radius: 50px;
-    background-color: #1e1e1e;
+    border-radius: 0px;
+    background-color: #242320;
 }
 input {
     margin-bottom: 0.5em;
