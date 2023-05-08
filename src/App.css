@@ -95,6 +95,7 @@ label, p {
   grid-row-start: 1;
   grid-row-end: span 2;
   min-height: 40vh;
+  max-height: 40vh;
 }
 
 .boardsDisplay {
@@ -113,7 +114,8 @@ label, p {
   border: 1px #494949 solid;
   border-radius: 0px;
   width: 100%;
-  max-height: 3Add0vh;
+  max-height: 30vh;
+  min-height: 30vh;
   padding: 2em;
   grid-column-start: 1;
   grid-column-end: 2;
@@ -147,6 +149,7 @@ label, p {
   font-size: 4em !important;
   /* background-color: #ffffff !important; */
   color: #ffffff !important;
+  
 }
 
 .navbar {
