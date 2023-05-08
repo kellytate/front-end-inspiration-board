@@ -173,9 +173,9 @@ label, p {
 
 .boardslist, .card-form-div, .board-form-div {
   background-color: #3e3b36;
-  /* border-radius: 4px !important; */
+  border-radius: 5px !important;
 }
 
 .boardsDisplay {
-  /* border-radius: 4px !important; */
+  border-radius: 5px !important;
 }
