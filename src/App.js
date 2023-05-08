@@ -10,7 +10,7 @@ const App = () => {
   return (
     <div className="App">
       <header>
-        <Navbar bg="dark" variant="dark">
+        <Navbar>
           <Container>
             <Navbar.Brand href="/">
               <b>d.e.c.k.y</b> Inspiration Board

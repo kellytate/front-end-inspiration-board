@@ -8,7 +8,7 @@ li {
     height: 300px;
     width: 300px;
     background: transparent;
-    padding: 20px 20px 60px 50px;
+    padding: 20px 20px 20px 50px;
 }
 
 .card {
@@ -19,24 +19,47 @@ li {
     background-repeat: no-repeat;
     position: relative;
     border: none;
+    color: #1e1e1e;
 }
 
 .content {
     margin-left: 40px;
     margin-right: 70px;
-    margin-top: auto;
+    margin-top: 50px;
     margin-bottom: auto;
 }
 
 .card-btns {
     display: flex;
     justify-content: center;
-    margin-right: 20px;
+    /* margin-right: 20px; */
+    /* margin-bottom: auto; */
+    color: #1e1e1e;
+}
+
+.card-btns .btn:hover {
+    background-color: transparent;
+    border: none;
 }
 
 .btn {
-    height: 40px;
-    margin-right: 5px;
+    /* height: 75px; */
+    /* margin-right: 5px; */
+    background-color: transparent;
+    border: none;
+    color: #1e1e1e;
+    font-size: 1.5em;
+    font-weight: 700;
+    margin-bottom: auto;
+}
+
+.btn p {
+    font-size: .95em;
+}
+
+.btn:hover {
+    background: none;
+    color: #1e1e1e;
 }
 
 .message {

@@ -3,6 +3,7 @@
     margin: 0 auto;
     border: 1px #494949 solid;
     border-radius: 50px;
+    background-color: #1e1e1e;
 }
 input {
     margin-bottom: 0.5em;
@@ -27,7 +28,7 @@ span {
 }
 
 .btn-primary {
-    background: #282c34 !important;
+    background: #8b8b8b !important;
     border-color: #282c34 !important;
 }
 

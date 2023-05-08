@@ -4,7 +4,7 @@ import "./BoardList.css";
 const BoardsList = ({ boards, onSelect }) => {
   return (
     <section className="m-auto">
-      <h2> BOARDS </h2>
+      <h2> boards </h2>
       <div className="div-boardlist">
         {boards.map((board) => {
           return (

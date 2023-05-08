@@ -31,7 +31,7 @@ const CreateNewCard = ({ onCardUpdate }) => {
   return (
     <div className="card-form-div">
       <Form className="new-card-form" onSubmit={cardFormSubmitHandler}>
-        <h2> CREATE A NEW CARD</h2>
+        <h2> create a new card</h2>
         <Form.Group className="mb-3">
           <Form.Label>Message</Form.Label>
           <Form.Control

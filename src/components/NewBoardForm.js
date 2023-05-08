@@ -35,7 +35,7 @@ const NewBoardForm = ({ onBoardUpdate }) => {
   return (
     <div className="board-form-div">
       <Form className="new-board-form" onSubmit={boardFormSubmitHandler}>
-        <h2> CREATE A NEW BOARD</h2>
+        <h2> create a new board </h2>
 
         <Form.Group className="mb-3">
           <Form.Label>Title</Form.Label>

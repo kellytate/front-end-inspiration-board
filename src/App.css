@@ -10,6 +10,11 @@ h2 {
 
 a {
   text-decoration: none !important;
+  font-size: 1.5em;
+}
+
+label, p {
+  font-size: 1.5em;
 }
 
 .App-logo {
@@ -53,7 +58,6 @@ a {
   align-items: center;
   justify-content: center;
   gap: 2em;
-  color: #1e1e1e;
 }
 
 .homeContent {
@@ -71,5 +75,22 @@ a {
 }
 
 .boardsDisplay {
-  width: 75%;
+  width: 100%;
+  border: 1px #494949 solid;
+  border-radius: 50px;
+  background-color: #1e1e1e;
+}
+
+.navbar-brand {
+  font-size: 4em !important;
+  /* background-color: #ffffff !important; */
+  color: #ffffff !important;
+}
+
+.navbar {
+  border: 0px;
+}
+
+.navbar a {
+  color: #ffffff !important;
 }
