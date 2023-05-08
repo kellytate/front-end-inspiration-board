@@ -216,6 +216,9 @@ const HomeScreen = () => {
       <div className="boardslist">
         <BoardsList boards={boardsList} onSelect={HandleSelectedBoard} />
       </div>
+      <div className="new-board">
+        <NewBoardForm onBoardUpdate={handleUpdatedBoard} />
+      </div>
       <div className="boardsDisplay">
         <div className="board-content">
           <h2 className="board-title">
@@ -239,7 +242,6 @@ const HomeScreen = () => {
         </div>
       </div>
       <div className="forms">
-          <NewBoardForm onBoardUpdate={handleUpdatedBoard} />
           <CreateNewCard onCardUpdate={handleUpdatedCard} />
       </div>
     </div>

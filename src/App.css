@@ -70,14 +70,31 @@ label, p {
   margin-top: 2em;
   display: grid;
   grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
   margin-left: 5%;
   margin-right: 5%;
+  column-gap: 30px;
+  row-gap: 30px;
+}
+
+.new-board {
+  grid-column-start: 1;
+  grid-column-end: 1;
+  grid-row-start: 2;
+  grid-row-end: end;
+  width: 100%;
+  min-height: 30vh;
 }
 
 .forms {
   display: flex;
   flex-direction: column;
   gap: 2em;
+  grid-column-start: 4;
+  grid-column-end: end;
+  grid-row-start: 1;
+  grid-row-end: span 2;
+  min-height: 40vh;
 }
 
 .boardsDisplay {
@@ -86,14 +103,35 @@ label, p {
   border-radius: 0px;
   background-color: #ded9c8;
   /* color: #1e1e1e; */
+  grid-column-start: 2;
+  grid-column-end: span 2;
+  grid-row-start: 1;
+  grid-row-end: span 3;
 }
 
 .boardslist {
   border: 1px #494949 solid;
   border-radius: 0px;
-  width: 85%;
+  width: 100%;
+  max-height: 30vh;
   padding: 2em;
+  grid-column-start: 1;
+  grid-column-end: 2;
+  grid-row-start: 1;
+  grid-row-end: 1;
+  overflow: scroll;
 }
+
+/* .boardslist::-webkit-scrollbar {
+  display: none;
+} */
+
+/* Hide scrollbar for IE, Edge and Firefox */
+/* .boardslist {
+  -ms-overflow-style: none;  
+  scrollbar-width: none;  
+} */
+
 
 .navbar-brand {
   font-size: 4em !important;
