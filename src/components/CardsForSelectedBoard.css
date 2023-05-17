@@ -4,4 +4,5 @@ ul {
     justify-content: center;
     /* background-color: #ded9c8; */
     padding: 0px;
+    gap: 3em;
 }
